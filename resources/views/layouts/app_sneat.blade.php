@@ -194,10 +194,17 @@
               </a>
             </li>
 
-            <li class="menu-item">
-              <a href="{{ route('user.index') }}" class="menu-link">
+            <li class="menu-item {{ \Route::is('wali.*') ? 'active' : '' }}">
+              <a href="{{ route('wali.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Data User</div>
+                <div data-i18n="Basic">Data Wali</div>
+              </a>
+            </li>
+
+            <li class="menu-item {{ \Route::is('siswa.*') ? 'active' : '' }}">
+              <a href="{{ route('siswa.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data Siswa</div>
               </a>
             </li>
 
@@ -371,24 +378,32 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="/assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <link rel="stylesheet" href="/assets/select/select2.min.css">
+     <script src="/assets/select/select2.min.js"></script>
+     <script>
+         // In your Javascript (external .js resource or <script> tag)
+         $(document).ready(function() {
+             $('.select2').select2();
+         });
+     </script>
   </body>
 </html>

@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-// use App\Models\User as Model;
+use App\Models\Siswa;
+use App\Http\Requests\StoreSiswaRequest;
+use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class SiswaController extends Controller
 {
     //agar lebih cepet tutorial Laravel Proyek #9 Refactor UserController
-    private $viewIndex ='user_index';
-    private $viewCreate='user_form';
-    private $viewEdit ='user_form';
-    private $viewShow ='user_show';
-    private $routePrefix ='user';
+    private $viewIndex ='siswa_index';
+    private $viewCreate='siswa_form';
+    private $viewEdit ='siswa_form';
+    private $viewShow ='siswa_show';
+    private $routePrefix ='siswa';
     /**
      * Display a listing of the resource.
      *
@@ -24,11 +26,10 @@ class UserController extends Controller
         // hanya operator dan admin saja
        
         return view('operator.'. $this->viewIndex, [
-        'models' => User::where('akses', '<>', 'wali')
-        ->latest() //data terbaru
+        'models' => Siswa::latest() //data terbaru
         ->paginate(50),
         'routePrefix' => $this->routePrefix,
-        'title' => 'Data User'
+        'title' => 'Data Siswa',
         ]);
     }
 
@@ -40,11 +41,13 @@ class UserController extends Controller
     public function create()
     {
         $data = [
-            'model' => new User(),
+            'model' => new Siswa(),
             'method' => 'POST',
             'route' => $this->routePrefix.'.store',
             'button' => 'SIMPAN',
-            'title' => ' Tambah Data User'
+            'routePrefix' => $this->routePrefix,
+            'title' => 'Tambah Data Siswa',
+            'wali' => User::where('akses', 'wali')->pluck('name', 'id')
         ];
         return view('operator.' .$this->viewCreate, $data);
     }
@@ -57,19 +60,37 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //|unique:users' agar tidak sama satu sama lain
+        //|unique:Siswas' agar tidak sama satu sama lain
         $data = $request -> validate ([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'nohp' => 'required|unique:users',
-            'akses' => 'required|in:operator,admin',
-            'password' => 'required',
+            'wali_id' => 'nullable',
+            'nama' => 'required',
+            'nisn' => 'required|unique:siswas',
+            'jurusan' => 'required',
+            'kelas' => 'required',
+            'angkatan' => 'required',
+            'foto' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
         ]);
-        $data ['password']= bcrypt($data['password']);
-        $data ['email_verified_at']= now();
-        User::create ($data);
+
+        // if ($request->hasFile('foto')){
+        //     $data['foto'] = $request->file('foto')->store('public');
+        // }
+
+            if ($request -> hasFile('foto')) {
+                $foto = $request->file('foto');
+                $file_name = time ().'-'. $foto -> getClientOriginalName ();
+
+                $storage = 'uploads/daftar_online/';
+                $foto->move ($storage, $file_name);
+                $data ['foto'] =$storage .$file_name;
+            }else {
+                $data ['foto'] = null;
+            }
+
+        $data ['wali_status']= 'oke';
+        $data ['user_id']= auth()->user()->id;
+        Siswa::create ($data);
         flash ('Data Berhasil Disimpan');
-        return redirect()->route('user.index');
+        return back();
     }
 
     /**
@@ -92,11 +113,12 @@ class UserController extends Controller
     public function edit($id)
     {
          $data = [
-            'model' =>  User::findOrFail($id),
+            'model' =>  Siswa::findOrFail($id),
             'method' => 'PUT',
             'route' => [$this->routePrefix.'.update', $id],
             'button' => 'UPDATE',
-            'title' => 'Edit Data User'
+            'routePrefix' => $this->routePrefix,
+            'title' => 'Data Wali Murid',
         ];
         return view('operator.'  .$this->viewEdit, $data);
     }
@@ -113,13 +135,12 @@ class UserController extends Controller
         //unset maksudnya dibuang dari required data
         $data = $request -> validate ([
             'name' => 'required',
-            'email' => 'required|unique:users,email,'.$id,
-            'nohp' => 'required|unique:users,nohp,'.$id,
-            // 'akses' => 'required|in:operator,admin',
+            'email' => 'required|unique:Siswas,email,'.$id,
+            'nohp' => 'required|unique:Siswas,nohp,'.$id,
             'password' => 'nullable',
         ]);
 
-        $model= User::findOrFail($id);
+        $model= Siswa::findOrFail($id);
         if ($data ['password']=="") {
             unset ($data ['password']);
         } else {
@@ -128,7 +149,7 @@ class UserController extends Controller
         $model->fill ($data);
         $model->save();
         flash ('Data Berhasil Diubah');
-        return redirect()->route('user.index');
+        return back();
     }
 
     /**
@@ -139,14 +160,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $model = User::findOrFail ($id);
+        $model = Siswa::where('akses', 'wali')->findOrFail ($id);
 
-        if ($model->id== 1){
-        flash ('Data tidak bisa DiHapus')->error();
-            return back ();
-        }
         $model->delete();
         flash ('Data Berhasil DiHapus');
-        return redirect()->route('user.index');
+        return back();
     }
 }

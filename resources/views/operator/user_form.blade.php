@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">Form User</h5>
+                <h5 class="card-header">{{ $title }}</h5>
 
                 <div class="card-body">
 
@@ -34,20 +34,22 @@
                         <span class="text-danger">{{ $errors->first('password') }}</span>
                     </div>
 
-                    <div class="form-group mt-3">
-                        <label for="akses">Hak Akses</label>
-                        {!! Form::select(
-                            'akses',
-                            [
-                                'operator' => 'operator sekolah',
-                                'admin' => 'Admin sekolah',
-                                'wali' => 'wali murid',
-                            ],
-                            null,
-                            ['class' => 'form-control'],
-                        ) !!}
-                        <span class="text-danger">{{ $errors->first('akses') }}</span>
-                    </div>
+                    @if (\Route::is('user.create'))
+                        <div class="form-group mt-3">
+                            <label for="akses">Hak Akses</label>
+                            {!! Form::select(
+                                'akses',
+                                [
+                                    'operator' => 'operator sekolah',
+                                    'admin' => 'Admin sekolah',
+                                    'wali' => 'wali murid',
+                                ],
+                                null,
+                                ['class' => 'form-control'],
+                            ) !!}
+                            <span class="text-danger">{{ $errors->first('akses') }}</span>
+                        </div>
+                    @endif
 
                     {!! Form::submit($button, ['class' => 'btn btn-primary mt-5']) !!}
 

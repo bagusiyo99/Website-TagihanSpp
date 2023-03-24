@@ -13,20 +13,27 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Nama Wali Murid</th>
                                     <th>Nama</th>
-                                    <th>No.Hp</th>
-                                    <th>Email</th>
-                                    <th>Akses</th>
+                                    <th>NISN</th>
+                                    <th>Jurusan</th>
+                                    <th>foto</th>
+                                    <th>Kelas</th>
+                                    <th>Angkatan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($models as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->nohp }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->akses }}</td>
+                                        <td>{{ $item->wali->name }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->nisn }}</td>
+                                        <td>{{ $item->jurusan }}</td>
+                                        <td><img src="/{{ $item->foto }}" width="100px" alt=""> </td>
+                                        <td>{{ $item->kelas }}</td>
+                                        <td>{{ $item->angkatan }}</td>
                                         <td>
                                             {{-- <a href="{{ route('user.edit', $item->id) }}"
                                                 class="btn btn-success mb-2">Edit</a> --}}
