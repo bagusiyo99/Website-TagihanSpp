@@ -43,9 +43,15 @@
                                                 'method' => 'DELETE',
                                                 'onsubmit' => 'return confirm ("Yakin ingin mengapus data ini?")',
                                             ]) !!}
-                                            <a href="{{ route('user.edit', $item->id) }}" class="btn btn-success mb-2"><i
-                                                    class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                            {{-- {!! Form::submit('Hapus', ['class' => 'btn btn-danger mb-2']) !!} --}}
+
+                                            <a href="{{ route($routePrefix . '.edit', $item->id) }}"
+                                                class="btn btn-success mb-2"><i class="fa-solid fa-pen-to-square"></i>
+                                                Edit</a>
+
+                                            <a href="{{ route($routePrefix . '.show', $item->id) }}"
+                                                class="btn btn-warning mb-2"><i class="fa-solid fa-pen-to-square"></i>
+                                                Detail</a>
+
                                             <button type="submit" class="btn btn-danger mb-2 "><i
                                                     class="fa-solid fa-trash-can"></i> Hapus</button>
 

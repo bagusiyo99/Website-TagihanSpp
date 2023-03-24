@@ -61,6 +61,10 @@
                             <span class="text-danger">{{ $errors->first('jurusan') }}</span>
                         </div>
 
+                        @if ($model->foto != null)
+                            <img src="/{{ $model->foto }}" width="300px" class="mt-4" alt="">
+                        @endif
+
                         <div class="form-group mt-3">
                             <label for="foto">Foto <b>(Format:jpg, jpeg, png, Ukuran Maks : 3MB)</b></label>
                             {!! Form::file('foto', ['class' => 'form-control', 'accept' => 'image/*']) !!}

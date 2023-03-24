@@ -79,18 +79,22 @@ class SiswaController extends Controller
                 $foto = $request->file('foto');
                 $file_name = time ().'-'. $foto -> getClientOriginalName ();
 
-                $storage = 'uploads/daftar_online/';
+                $storage = 'uploads/foto/';
                 $foto->move ($storage, $file_name);
                 $data ['foto'] =$storage .$file_name;
             }else {
                 $data ['foto'] = null;
             }
 
-        $data ['wali_status']= 'oke';
+        if ($request->filled('wali_id')) {
+            $data ['wali_status']= 'oke';
+        }
+
+        
         $data ['user_id']= auth()->user()->id;
         Siswa::create ($data);
         flash ('Data Berhasil Disimpan');
-        return back();
+        return redirect()->route('siswa.index');
     }
 
     /**
@@ -101,7 +105,11 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        //
+         return view('operator.'. $this->viewShow, [
+        'model' => Siswa::findOrFail ($id),
+        'title' => 'Data Siswa',
+        ]);
+        
     }
 
     /**
@@ -119,6 +127,7 @@ class SiswaController extends Controller
             'button' => 'UPDATE',
             'routePrefix' => $this->routePrefix,
             'title' => 'Data Wali Murid',
+            'wali' => User::where('akses', 'wali')->pluck('name', 'id')
         ];
         return view('operator.'  .$this->viewEdit, $data);
     }
@@ -133,23 +142,43 @@ class SiswaController extends Controller
     public function update(Request $request, $id)
     {
         //unset maksudnya dibuang dari required data
+        $model= Siswa::findOrFail($id);
         $data = $request -> validate ([
-            'name' => 'required',
-            'email' => 'required|unique:Siswas,email,'.$id,
-            'nohp' => 'required|unique:Siswas,nohp,'.$id,
-            'password' => 'nullable',
+            'wali_id' => 'nullable',
+            'nama' => 'required',
+            'nisn' => 'required|unique:siswas,nisn,' .$id,
+            'jurusan' => 'required',
+            'kelas' => 'required',
+            'angkatan' => 'required',
+            'foto' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
         ]);
 
-        $model= Siswa::findOrFail($id);
-        if ($data ['password']=="") {
-            unset ($data ['password']);
-        } else {
-            $data ['password']= bcrypt($data['password']);
+          if ($request -> hasFile('foto')) {
+            if($model->foto  != null){
+                unlink($model->foto);
+            }
+
+            $foto = $request->file('foto');
+            $file_name = time ().'-'. $foto -> getClientOriginalName ();
+
+            $storage = 'uploads/foto/';
+            $foto->move ($storage, $file_name);
+            $data ['foto'] =$storage .$file_name;
+        }else {
+            $data ['foto'] = $model ->foto;
         }
+        
+        
+        if ($request->filled('wali_id')) {
+            $data ['wali_status']= 'oke';
+        }
+        
+        $data ['user_id']= auth()->user()->id;
+        
         $model->fill ($data);
         $model->save();
         flash ('Data Berhasil Diubah');
-        return back();
+        return redirect()->route('siswa.index');
     }
 
     /**
@@ -160,10 +189,14 @@ class SiswaController extends Controller
      */
     public function destroy($id)
     {
-        $model = Siswa::where('akses', 'wali')->findOrFail ($id);
+        $model = Siswa::findOrFail ($id);
+
+            if($model->foto != null){
+            unlink($model->foto);
+                }
 
         $model->delete();
         flash ('Data Berhasil DiHapus');
-        return back();
+        return redirect()->route('siswa.index');
     }
 }
