@@ -12,7 +12,8 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
-        "laravelcollective/html": "^6.4"
+        "laravelcollective/html": "^6.4",
+        "nicolaslopezj/searchable": "^1.13"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

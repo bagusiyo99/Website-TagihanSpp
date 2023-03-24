@@ -5,11 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Siswa extends Model
 {
     use HasFactory;
+    use SearchableTrait;
     protected $guarded = [];
+
+//pencarian vidio part 21 
+    protected $searchable = [
+        'columns' => [
+            'nama' => 10,
+            'nisn' => 10,
+        ],
+
+    ];
 
     public function user(): BelongsTo
     {
@@ -27,4 +38,6 @@ class Siswa extends Model
             'name' => 'Belum ada Wali murid'
         ]);
     }
+
+    
 }

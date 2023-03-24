@@ -43,12 +43,12 @@
                                 </tr>
 
                                 <tr>
-                                    <td width="15%">Kelas</td>
+                                    <td width="15%">Tanggal</td>
                                     <td>: {{ $model->created_at->format('d-F-Y ') }}</td>
                                 </tr>
 
                                 <tr>
-                                    <td width="15%">Kelas</td>
+                                    <td width="15%">Update</td>
                                     <td>: {{ $model->updated_at->format('d-F-Y ') }}</td>
                                 </tr>
 

@@ -21,13 +21,22 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request,)
     {
-        // hanya operator dan admin saja
-       
+        //pencarian vidio part 21 
+        if ( $request->filled('q')) {
+            $models = Siswa::search($request->q)->paginate(50);
+        } else {
+            $models = Siswa::latest()->paginate(50);
+        }
+        
+
         return view('operator.'. $this->viewIndex, [
-        'models' => Siswa::latest() //data terbaru
-        ->paginate(50),
+            //pindah keatas
+        // 'models' => Siswa::latest() //data terbaru
+        // ->paginate(50),
+
+        'models' => $models,
         'routePrefix' => $this->routePrefix,
         'title' => 'Data Siswa',
         ]);
