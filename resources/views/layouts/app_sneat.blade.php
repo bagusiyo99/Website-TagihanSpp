@@ -208,7 +208,19 @@
               </a>
             </li>
 
-            
+            <li class="menu-item {{ \Route::is('biaya.*') ? 'active' : '' }}">
+              <a href="{{ route('biaya.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data Biaya</div>
+              </a>
+            </li>
+
+            <li class="menu-item {{ \Route::is('tagihan.*') ? 'active' : '' }}">
+              <a href="{{ route('tagihan.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data tagihan</div>
+              </a>
+            </li>
 
           </ul>
         </aside>
@@ -395,15 +407,26 @@
     <!-- Page JS -->
     <script src="/assets/js/dashboards-analytics.js"></script>
 
+        <!-- plugin harga -->
+    <script src="/assets/js/jquery.mask.min.js"></script>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    {{-- select plugin --}}
     <link rel="stylesheet" href="/assets/select/select2.min.css">
      <script src="/assets/select/select2.min.js"></script>
      <script>
          // In your Javascript (external .js resource or <script> tag)
          $(document).ready(function() {
+             $('.rupiah').mask("#.##0", {
+                 reverse: true
+             });
+
              $('.select2').select2();
          });
      </script>
+
+
   </body>
 </html>

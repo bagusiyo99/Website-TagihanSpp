@@ -8,14 +8,22 @@
 
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
-                    <div class="table-responsive">
+                    {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
+                    <div class="input-group">
+                        <input name="q" type="text" class="form-control" placeholder="Cari Data Siswa"
+                            aria-label="Cari Data" aria-describedby="button-addon2" value="{{ request('q') }}">
+                        <button type="submit" class="btn btn-outline-primary" id="button-addon2"><i
+                                class="bx bx-search"></i></button>
+                    </div>
+                    {!! Form::close() !!}
+                    <div class="table-responsive mt-4">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>No.Hp</th>
-                                    <th>Email</th>
+                                    <th>Nama Biaya</th>
+                                    <th>Jumlah</th>
+                                    <th>Created By</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -23,21 +31,33 @@
                                 @forelse ($models as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->nohp }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->akses }}</td>
+                                        <td>{{ $item->nama }}</td>
+
+                                        {{-- tutorial 32 dan 33 membuat helper  dan cara manual --}}
+                                        {{-- <td>{{ $item->formatRupiah('jumlah') }}</td> --}}
+
+                                        {{-- cara cepet --}}
+                                        <td> Rp. {{ $item->jumlah }}</td>
+
+                                        <td>{{ $item->user->name }}</td>
                                         <td>
+                                            {{-- <a href="{{ route('user.edit', $item->id) }}"
+                                                class="btn btn-success mb-2">Edit</a> --}}
 
                                             {!! Form::open([
                                                 'route' => [$routePrefix . '.destroy', $item->id],
                                                 'method' => 'DELETE',
                                                 'onsubmit' => 'return confirm ("Yakin ingin mengapus data ini?")',
                                             ]) !!}
+
                                             <a href="{{ route($routePrefix . '.edit', $item->id) }}"
                                                 class="btn btn-success mb-2"><i class="fa-solid fa-pen-to-square"></i>
                                                 Edit</a>
-                                            {{-- {!! Form::submit('Hapus', ['class' => 'btn btn-danger mb-2']) !!} --}}
+
+                                            <a href="{{ route($routePrefix . '.show', $item->id) }}"
+                                                class="btn btn-warning mb-2"><i class="fa-solid fa-pen-to-square"></i>
+                                                Detail</a>
+
                                             <button type="submit" class="btn btn-danger mb-2 "><i
                                                     class="fa-solid fa-trash-can"></i> Hapus</button>
 

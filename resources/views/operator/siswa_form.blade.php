@@ -36,13 +36,16 @@
 
                         <div class="form-group mt-3">
                             <label for="kelas">Kelas</label>
-                            {!! Form::selectRange('kelas', 10, 12, null, ['class' => 'form-control']) !!}
+                            {!! Form::selectRange('kelas', 10, 12, null, ['class' => 'form-control', 'placeholder' => 'Pilih Kelas']) !!}
                             <span class="text-danger">{{ $errors->first('kelas') }}</span>
                         </div>
 
                         <div class="form-group mt-3">
                             <label for="angkatan">Angkatan</label>
-                            {!! Form::selectRange('angkatan', 2000, date('Y'), null, ['class' => 'form-control']) !!}
+                            {!! Form::selectRange('angkatan', 2000, date('Y'), null, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Angkatan',
+                            ]) !!}
                             <span class="text-danger">{{ $errors->first('angkatan') }}</span>
                         </div>
 
@@ -56,7 +59,7 @@
                                     'TKR' => 'Teknik Kendaraan Ringan',
                                 ],
                                 null,
-                                ['class' => 'form-control'],
+                                ['class' => 'form-control', 'placeholder' => 'Jurusan'],
                             ) !!}
                             <span class="text-danger">{{ $errors->first('jurusan') }}</span>
                         </div>
