@@ -17,13 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('siswa_id')->index();
             $table->foreignId('user_id')->index();
-            $table->integer('angkatan');
-            $table->integer('kelas');
-            $table->date('tangal_tagihan');
-            $table->date('tangal_jatuh_tempo');
-            $table->string('nama_biaya');
-            $table->double('jumlah_biaya');
-            $table->double('denda');
+            $table->integer('angkatan')->nullable();
+            $table->integer('kelas')->nullable();
+            $table->date('tanggal_tagihan');
+            $table->date('tanggal_jatuh_tempo');
+            $table->double('denda')->nullable();
             $table->string('keterangan')->nullable();
             $table->enum('status', ['baru', 'angsur', 'lunas']);
             $table->timestamps();

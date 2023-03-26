@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSiswaRequest extends FormRequest
+class UpdateTagihanDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreSiswaRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,13 +24,7 @@ class StoreSiswaRequest extends FormRequest
     public function rules()
     {
         return [
-            'wali_id' => 'nullable',
-            'nama' => 'required',
-            'nisn' => 'required|unique:siswas',
-            'jurusan' => 'required',
-            'kelas' => 'required',
-            'angkatan' => 'required',
-            'foto' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
+            //
         ];
     }
 }

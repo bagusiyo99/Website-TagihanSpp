@@ -67,6 +67,19 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->nisn }}</td>
+                                        {{-- <td>
+
+                                            {!! Form::open([
+                                                'route' => ['walisiswa.update', $item->id],
+                                                'method' => 'PUT',
+                                                'onsubmit' => 'return confirm ("Yakin ingin mengapus data ini?")',
+                                            ]) !!}
+
+                                            <button type="submit" class="btn btn-danger mb-2 "><i
+                                                    class="fa-solid fa-trash-can"></i> Hapus</button>
+
+                                            {!! Form::close() !!}
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

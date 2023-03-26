@@ -18,6 +18,7 @@ class Siswa extends Model
         'columns' => [
             'nama' => 10,
             'nisn' => 10,
+            'wali_id' => 10,
         ],
 
     ];

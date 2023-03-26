@@ -13,7 +13,7 @@ class StoreBiayaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreBiayaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+                'nama' => 'required|unique:biayas,nama',
+                'jumlah' => 'required',
         ];
     }
 }

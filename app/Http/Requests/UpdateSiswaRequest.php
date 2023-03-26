@@ -24,7 +24,13 @@ class UpdateSiswaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'wali_id' => 'nullable',
+            'nama' => 'required',
+            'nisn' => 'required|unique:siswas',
+            'jurusan' => 'required',
+            'kelas' => 'required',
+            'angkatan' => 'required',
+            'foto' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
         ];
     }
 }

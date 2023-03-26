@@ -41,8 +41,7 @@
 
                                         <td>{{ $item->user->name }}</td>
                                         <td>
-                                            {{-- <a href="{{ route('user.edit', $item->id) }}"
-                                                class="btn btn-success mb-2">Edit</a> --}}
+
 
                                             {!! Form::open([
                                                 'route' => [$routePrefix . '.destroy', $item->id],

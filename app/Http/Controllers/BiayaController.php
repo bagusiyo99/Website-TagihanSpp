@@ -65,16 +65,17 @@ class BiayaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBiayaRequest $request)
     {
-        //|unique:Siswas' agar tidak sama satu sama lain
-        $data = $request -> validate ([
-            'nama' => 'required|unique:biayas,nama',
-            'jumlah' => 'required',
-        ]);
+        // mengambil validasi di file use App\Http\Requests\StoreBiayaRequest;
+        $data = $request -> validated ();
+        // $data = $request -> validate ([
+        //     'nama' => 'required|unique:biayas,nama',
+        //     'jumlah' => 'required',
+        // ]);
 
         
-        $data ['user_id']= auth()->user()->id;
+        // $data ['user_id']= auth()->user()->id;
         Biaya::create ($data);
         flash ('Data Berhasil Disimpan');
         return redirect()->route('biaya.index');
@@ -122,17 +123,20 @@ class BiayaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBiayaRequest $request, $id)
     {
-        //unset maksudnya dibuang dari required data
+        // mengambil validasi di file use App\Http\Requests\UpdateBiayaRequest;
         $model= Biaya::findOrFail($id);
-        $data = $request -> validate ([
-            'nama' => 'required',
-            'jumlah' => 'required',
-        ]);
+
+        $data = $request -> validated ();
+
+        // $data = $request -> validate ([
+        //     'nama' => 'required',
+        //     'jumlah' => 'required',
+        // ]);
 
         
-        $data ['user_id']= auth()->user()->id;
+        // $data ['user_id']= auth()->user()->id;
         
         $model->fill ($data);
         $model->save();
