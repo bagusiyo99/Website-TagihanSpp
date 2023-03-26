@@ -31,8 +31,27 @@
             <div class="card">
                 <h5 class="card-header"> Data Tagihan</h5>
                 <div class="card-body">
-                    Data Tagihan
+                    Data Tagihan {{ $periode }}
+                    <table class="table table-sm mt-2 table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Tagihan</th>
+                                <th>Jumlah Tagihan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tagihan->tagihanDetails as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->nama_biaya }}</td>
+                                    <td> Rp. {{ $item->jumlah_biaya }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+                <h5 class="card-header"> Data Pembayaran</h5>
             </div>
         </div>
 

@@ -34,10 +34,10 @@
                                         <td>{{ $item->nama }}</td>
 
                                         {{-- tutorial 32 dan 33 membuat helper  dan cara manual --}}
-                                        {{-- <td>{{ $item->formatRupiah('jumlah') }}</td> --}}
+                                        <td>{{ $item->formatRupiah('jumlah') }}</td>
 
                                         {{-- cara cepet --}}
-                                        <td> Rp. {{ $item->jumlah }}</td>
+                                        {{-- <td> Rp. {{ $item->jumlah }}</td> --}}
 
                                         <td>{{ $item->user->name }}</td>
                                         <td>

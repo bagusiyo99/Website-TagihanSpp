@@ -12,8 +12,11 @@ class Tagihan extends Model
     use HasFactory;
     protected $guarded = [];
     protected $dates = ['tanggal_tagihan'];
+    protected $with = ['user','siswa', 'tagihanDetails'];
 
-            public function user(): BelongsTo
+    
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

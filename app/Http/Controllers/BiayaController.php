@@ -69,13 +69,9 @@ class BiayaController extends Controller
     {
         // mengambil validasi di file use App\Http\Requests\StoreBiayaRequest;
         $data = $request -> validated ();
-        // $data = $request -> validate ([
-        //     'nama' => 'required|unique:biayas,nama',
-        //     'jumlah' => 'required',
-        // ]);
 
+        // $data ['jumlah'] = str_replace('.', '', $data['jumlah'] );
         
-        // $data ['user_id']= auth()->user()->id;
         Biaya::create ($data);
         flash ('Data Berhasil Disimpan');
         return redirect()->route('biaya.index');

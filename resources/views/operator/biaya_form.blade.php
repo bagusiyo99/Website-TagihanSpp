@@ -21,6 +21,7 @@
 
                         <div class="form-group mt-3">
                             <label for="jumlah">Nominal</label>
+                            {{-- plugin rupiah tutor  29 --}}
                             {!! Form::text('jumlah', null, ['class' => 'form-control rupiah']) !!}
                             <span class="text-danger">{{ $errors->first('jumlah') }}</span>
                         </div>

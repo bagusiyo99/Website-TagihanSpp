@@ -40,9 +40,10 @@
                             <span class="text-danger">{{ $errors->first('kelas') }}</span>
                         </div>
 
+                        {{--  tutorial Laravel Proyek #16 Membuat Form Tambah Siswa --}}
                         <div class="form-group mt-3">
                             <label for="angkatan">Angkatan</label>
-                            {!! Form::selectRange('angkatan', 2000, date('Y'), null, [
+                            {!! Form::selectRange('angkatan', 2020, date('Y') + 15, null, [
                                 'class' => 'form-control',
                                 'placeholder' => 'Angkatan',
                             ]) !!}

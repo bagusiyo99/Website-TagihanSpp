@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBiayaRequest extends FormRequest
+class UpdatePembayaranRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateBiayaRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,15 +24,7 @@ class UpdateBiayaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required',
-            'jumlah' => 'required|numeric',
+            //
         ];
-    }
-
-        protected function prepareForValidation()
-    {
-        $this->merge([
-            'jumlah' => str_replace('.', '', $this->jumlah),
-        ]);
     }
 }
