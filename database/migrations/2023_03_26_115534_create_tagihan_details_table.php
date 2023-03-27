@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tagihan_id');
             $table->string('nama_biaya');
-            $table->string('jumlah_biaya');
+            $table->bigInteger('jumlah_biaya');
             $table->timestamps();
         });
     }

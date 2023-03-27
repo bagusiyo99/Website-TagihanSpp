@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasFormatRupiah;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Tagihan extends Model
 {
     use HasFactory;
+
+    //dapet dari use App\Traits\HasFormatRupiah;
+    use HasFormatRupiah;
+
+    
     protected $guarded = [];
     protected $dates = ['tanggal_tagihan'];
     protected $with = ['user','siswa', 'tagihanDetails'];
@@ -36,6 +42,13 @@ class Tagihan extends Model
         return $this->hasMany(TagihanDetail::class);
     }
 
+
+       public function pembayaran(): HasMany
+    {
+        return $this->hasMany(pembayaran::class);
+    }
+
+
    
         protected static function booted()
     {
@@ -47,5 +60,6 @@ class Tagihan extends Model
             $tagihan->user_id= auth()->user()->id;
         });
     }
+    
 
 }

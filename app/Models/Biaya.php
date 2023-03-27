@@ -11,7 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Biaya extends Model
 {
     use HasFactory;
+
+    //dapet dari use App\Traits\HasFormatRupiah;
     use HasFormatRupiah;
+
+    
     protected $append= ['nama_biaya_full'];
     protected $guarded = [];
 
@@ -34,11 +38,11 @@ class Biaya extends Model
     }
  
 
+    //tutorial nomor 39
      protected function namaBiayaFull(): Attribute
     {
         return Attribute::make(
-            get: fn ($valeu) => $this->nama . ' - ' .$this->jumlah,
-
+            get: fn ($valeu) => $this->nama . ' - ' .$this->formatRupiah('jumlah'),
         );
     }
 }

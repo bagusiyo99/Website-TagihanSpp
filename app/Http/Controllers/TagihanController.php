@@ -6,6 +6,7 @@ use App\Models\Tagihan;
 use App\Http\Requests\StoreTagihanRequest;
 use App\Http\Requests\UpdateTagihanRequest;
 use App\Models\Biaya;
+use App\Models\Pembayaran;
 use App\Models\Siswa;
 use App\Models\TagihanDetail;
 use App\Models\User;
@@ -34,7 +35,7 @@ class TagihanController extends Controller
                         ->whereYear ('tanggal_tagihan',$request->tahun)
             ->paginate(50);
         }else {
-        $models = Tagihan::with('user','siswa')->latest()->paginate(50);
+        $models = Tagihan::latest()->paginate(50);
 
         }
 
@@ -96,7 +97,7 @@ class TagihanController extends Controller
                     $data ['status'] = 'baru';
                     $tanggalTagihan = Carbon::parse($data['tanggal_tagihan']);
                     $bulanTagihan = $tanggalTagihan->format('m');
-                    $tahunTagihan = $tanggalTagihan->format('y');
+                    $tahunTagihan = $tanggalTagihan->format('Y');
                     $cekTagihan = Tagihan::where('siswa_id', $itemSiswa->id)
                         ->whereMonth ('tanggal_tagihan', $bulanTagihan)
                         ->whereYear ('tanggal_tagihan', $tahunTagihan)
@@ -128,7 +129,8 @@ class TagihanController extends Controller
     
         $data ['tagihan'] = $tagihan;
         $data ['siswa'] = $tagihan->siswa;
-        $data ['periode'] = Carbon::parse($tagihan->tanggal_tagihan)->format('F Y');
+        $data ['periode'] = Carbon::parse($tagihan->tanggal_tagihan)->translatedformat('F Y');
+        $data ['model'] = new Pembayaran();
         return view('operator.'.$this->viewShow, $data);
         
     }

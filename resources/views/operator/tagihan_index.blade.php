@@ -53,7 +53,7 @@
                                         <td>{{ $item->siswa->nisn }}</td>
                                         <td>{{ $item->tanggal_tagihan->format('d-F-Y ') }}</td>
                                         <td>{{ $item->status }}</td>
-                                        <td>Rp. {{ $item->tagihanDetails->sum('jumlah_biaya') }}</td>
+                                        <td>{{ formatRupiah($item->tagihanDetails->sum('jumlah_biaya')) }}</td>
                                         <td>
 
                                             {!! Form::open([
