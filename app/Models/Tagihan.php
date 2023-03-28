@@ -48,6 +48,11 @@ class Tagihan extends Model
         return $this->hasMany(pembayaran::class);
     }
 
+        public function tagihan(): HasMany
+    {
+        return $this->hasMany(tagihan::class);
+    }
+
 
    
         protected static function booted()

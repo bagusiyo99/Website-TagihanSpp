@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaOperatorController;
 use App\Http\Controllers\BerandaWaliController;
 use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\KartuSppController;
 use App\Http\Controllers\KwitansiPembayaranController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliController;
+use App\Http\Controllers\WaliMuridController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,16 +41,24 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('biaya', BiayaController::class);
     Route::resource('tagihan', TagihanController::class);
     Route::resource('pembayaran', PembayaranController::class);
-    Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show');;
+    Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show');
+    Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index');;
 
 });
+
+    Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');
+
+
 
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
 
 });
 
-Route::prefix('wali')->middleware(['auth', 'auth.wali'])->group(function(){
-    Route::get('beranda', [BerandaWaliController::class, 'index'])->name('wali.beranda');
+// name('wali')-> untuk grup agar tidak lagi memanggil wali karena sudah di buat grup
+Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(function(){
+    Route::get('beranda', [BerandaWaliController::class, 'index'])->name('beranda');
+    Route::resource('siswa', WaliMuridController::class);
+
 
 });
 
@@ -56,3 +67,6 @@ Route::get('logout', function () {
     Auth::logout();
     return redirect('login');
 })->name('logout');
+
+
+

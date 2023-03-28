@@ -40,6 +40,19 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    //tutor 64
+        public function showLoginForm()
+    {
+        return view('auth.auth_login_basic');
+    }
+
+        //tutor 64
+        public function showLoginFormWali()
+    {
+        return view('auth.auth_login_basic_wali');
+    }
+
+
         public function authenticated (Request $request, $user)
     {
         if ($user->akses == 'operator' || $user->akses == 'admin') {
