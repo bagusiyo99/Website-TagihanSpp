@@ -194,6 +194,13 @@
               </a>
             </li>
 
+            <li class="menu-item {{ \Route::is('bank.*') ? 'active' : '' }}">
+              <a href="{{ route('bank.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data Rekening Bank</div>
+              </a>
+            </li>
+
             <li class="menu-item {{ \Route::is('wali.*') ? 'active' : '' }}">
               <a href="{{ route('wali.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>

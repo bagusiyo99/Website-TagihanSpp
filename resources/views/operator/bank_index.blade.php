@@ -11,7 +11,7 @@
                     {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
                     <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Cari Nama Siswa"
-                            aria-label="Cari Nama" aria-describedby="button-addon2" value="{{ request('q') }}">
+                            aria-label="Cari Nama" aria-describedby="button-addon2" value="{{ request('a') }}">
                         <button type="submit" class="btn btn-outline-primary" id="button-addon2"><i
                                 class="bx bx-search"></i></button>
                     </div>
@@ -21,13 +21,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Wali Murid</th>
-                                    <th>Nama</th>
-                                    <th>NISN</th>
-                                    <th>Jurusan</th>
-                                    {{-- <th>foto</th> --}}
-                                    <th>Kelas</th>
-                                    <th>Angkatan</th>
+                                    <th>kode</th>
+                                    <th>Nama Bank</th>
+                                    <th>Nama Rekening</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -35,13 +31,10 @@
                                 @forelse ($models as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->wali->name }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->nisn }}</td>
-                                        <td>{{ $item->jurusan }}</td>
-                                        {{-- <td><img src="/{{ $item->foto }}" width="100px" alt=""> </td> --}}
-                                        <td>{{ $item->kelas }}</td>
-                                        <td>{{ $item->angkatan }}</td>
+                                        <td>{{ $item->kode }}</td>
+                                        <td>{{ $item->nama_bank }}</td>
+                                        <td>{{ $item->nama_rekening }}</td>
+                                        <td>{{ $item->nomor_rekening }}</td>
                                         <td>
                                             {{-- <a href="{{ route('user.edit', $item->id) }}"
                                                 class="btn btn-success mb-2">Edit</a> --}}

@@ -17,7 +17,7 @@ class Tagihan extends Model
 
     
     protected $guarded = [];
-    protected $dates = ['tanggal_tagihan'];
+    protected $dates = ['tanggal_tagihan', 'tanggal_jatuh_tempo'];
     protected $with = ['user','siswa', 'tagihanDetails'];
 
     
@@ -48,9 +48,16 @@ class Tagihan extends Model
         return $this->hasMany(pembayaran::class);
     }
 
-        public function tagihan(): HasMany
+        public function getTagihanWali()
     {
-        return $this->hasMany(tagihan::class);
+        if ($this->status =='baru') {
+            return 'Belum Lunas';
+        }
+
+        if ($this->status =='lunas') {
+            return 'Sudah Dibayar';
+        }
+        return $this->status;
     }
 
 

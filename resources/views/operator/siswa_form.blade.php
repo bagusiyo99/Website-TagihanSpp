@@ -55,9 +55,9 @@
                             {!! Form::select(
                                 'jurusan',
                                 [
-                                    'RPL' => 'Rekayasa Perangkat Lunak',
-                                    'TKJ' => 'Teknik Komputer Jaringan',
-                                    'TKR' => 'Teknik Kendaraan Ringan',
+                                    'Rekayasa Perangkat Lunak' => 'Rekayasa Perangkat Lunak',
+                                    'Teknik Komputer Jaringan' => 'Teknik Komputer Jaringan',
+                                    'Teknik Kendaraan Ringan' => 'Teknik Kendaraan Ringan',
                                 ],
                                 null,
                                 ['class' => 'form-control', 'placeholder' => 'Jurusan'],

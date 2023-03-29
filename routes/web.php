@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BankSekolahController;
 use App\Http\Controllers\BerandaOperatorController;
 use App\Http\Controllers\BerandaWaliController;
 use App\Http\Controllers\BiayaController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliController;
 use App\Http\Controllers\WaliMuridController;
+use App\Http\Controllers\WaliMuridTagihanController;
+use App\Models\BankSekolah;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +42,7 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('wali', WaliController::class);
     Route::resource('siswa', SiswaController::class);
     Route::resource('biaya', BiayaController::class);
+    Route::resource('bank', BankSekolahController::class);
     Route::resource('tagihan', TagihanController::class);
     Route::resource('pembayaran', PembayaranController::class);
     Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show');
@@ -58,6 +62,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
 Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(function(){
     Route::get('beranda', [BerandaWaliController::class, 'index'])->name('beranda');
     Route::resource('siswa', WaliMuridController::class);
+    Route::resource('tagihan', WaliMuridTagihanController::class);
+    Route::resource('wali', WaliController::class);
+
 
 
 });
