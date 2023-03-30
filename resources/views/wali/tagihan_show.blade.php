@@ -145,30 +145,34 @@
                             <li><a href="">Cara Pendaftaran Melalui Transfer</a></li>
 
                         </ul>
-                        @foreach ($bankSekolah as $item)
+                        @foreach ($bankSekolah as $itemBank)
                             <div class="col-md-4 mt-1">
                                 <div class="alert alert-primary bg-primary" role="alert">
                                     <table class="text-white" width="100%">
                                         <tbody>
                                             <tr>
                                                 <td width="45%">Nama Bank</td>
-                                                <td> : {{ strtoupper($item->nama_bank) }}</td>
+                                                <td> : {{ strtoupper($itemBank->nama_bank) }}</td>
                                             </tr>
 
                                             <tr>
                                                 <td>Nomor Rekening Bank</td>
-                                                <td> : {{ strtoupper($item->nomor_rekening) }}</td>
+                                                <td> : {{ strtoupper($itemBank->nomor_rekening) }}</td>
 
                                             </tr>
 
                                             <tr>
                                                 <td>Nama Rekening Bank</td>
-                                                <td> : {{ strtoupper($item->nama_rekening) }}</td>
+                                                <td> : {{ strtoupper($itemBank->nama_rekening) }}</td>
 
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <a class="btn btn-warning text-white mt-2 text-end" href="">
+                                    <a class="btn btn-warning text-white mt-2 text-end"
+                                        href="{{ route('wali.pembayaran.create', [
+                                            'tagihan_id' => $tagihan->id,
+                                            'bank_sekolah_id' => $itemBank->id,
+                                        ]) }}">
                                         Konfirmasi Pembayaran</a>
                                 </div>
                             </div>

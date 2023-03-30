@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Siswa::class, 'wali_id', 'id');
     }
+
+            // validasi penting tutor 79
+    public function getAllSiswaId() : array
+    {
+        return $this->siswa->pluck('id')->toArray();
+    }
 }

@@ -8,6 +8,9 @@ use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+// perbedaan find dan first first() dapat memudahkan Anda untuk melakukan query database 
+// berdasarkan column atau property yang unik seperti ID siswa setiap where selalu first tutorial 77
+
 class SiswaController extends Controller
 {
     //agar lebih cepet tutorial Laravel Proyek #9 Refactor UserController
