@@ -20,7 +20,7 @@ class Pembayaran extends Model
 
         public function tagihan(): BelongsTo
     {
-        return $this->belongsTo(Pembayaran::class);
+        return $this->belongsTo(Tagihan::class);
     }
 
 
@@ -33,5 +33,11 @@ class Pembayaran extends Model
         static::updating(function ($tagihan) {
             $tagihan->user_id= auth()->user()->id;
         });
+    }
+
+
+            public function wali(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'wali_id');
     }
 }

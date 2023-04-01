@@ -6,19 +6,26 @@ use App\Models\Bank;
 use App\Models\BankSekolah;
 use App\Models\Pembayaran;
 use App\Models\Tagihan;
+use App\Models\User;
+use App\Models\WaliBank;
+use App\Notifications\PembayaranNotification;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Notification;
 
 class WaliMuridPembayaranController extends Controller
 {
     public function create (Request $request)
     {
+        //findOrfail artinya data tidak ditemukan jika error
         // $data['tagihan']  = Tagihan::where('id', $request->tagihan_id)->first();
         // dipersingkat
         // waliSiswa() sudah tidak di ganti datanya 
         $data['tagihan']  = Tagihan::waliSiswa()->findOrfail($request->tagihan_id);
 
         // $data['bankSekolah']  = BankSekolah::findOrfail ($request->bank_sekolah_id);
+
+        $data['ListWaliBank']  = WaliBank::where('wali_id',Auth::user()->id)->get()->pluck('nama_bank_full', 'id');
         $data['model' ]= new Pembayaran();
         $data['method'] = 'POST';
         $data['route'] = 'wali.pembayaran.store';
@@ -35,5 +42,95 @@ class WaliMuridPembayaranController extends Controller
 
         return view ('wali.pembayaran_index', $data);
 
+    }
+
+    public function store (Request $request)
+    {
+
+        if ($request->wali_bank_id == '' && $request->nomor_rekening == '') {
+        flash('Silahkan Pilih Bank pengirim')->error();
+        return back();
+        }
+
+            // tutor 89
+      if ($request->nama_rekening != '' && $request->nomor_rekening != '') {
+        $bankId = $request->bank_id;
+        $bank = Bank::findOrfail ($bankId);
+        if ($request->filled('simpan_data_rekening')) {
+            $requestDataBank = $request->validate ([
+                'nama_rekening' => 'required',
+                'nomor_rekening' => 'required',
+            ]);
+            $waliBank = WaliBank::firstOrCreate(
+                $requestDataBank,
+                [
+                    'nama_rekening' => $requestDataBank ['nama_rekening'],
+                    'wali_id' => Auth::user()->id,
+                    'kode' => $bank->sandi_bank,
+                    'nama_bank' => $bank->nama_bank,
+                ]
+            );
+        }
+      } else {
+        //ambil data wali bank
+        $waliBankId = $request->wali_bank_id;
+        $waliBank =WaliBank::findOrFail($waliBankId);
+        }
+
+        $jumlahDibayar = str_replace('.', '', $request->jumlah_dibayar);
+        // tutor 88
+            $validasiPembayaran = Pembayaran::where('jumlah_dibayar', $jumlahDibayar)
+                        ->where ('status_konfirmasi', 'belum')
+                        ->where ('tagihan_id', $request->tagihan_id)
+                        ->first();
+                if ($validasiPembayaran != null) {
+                    
+        flash('Data Sudah ada, Mohon tunggu konfirmasi validasi dari admin');
+        return back();
+                }
+ // akhir tutor 88
+
+            $request->validate ([
+                'tanggal_bayar' => 'required',
+                'jumlah_dibayar' => 'required',
+                'bukti_bayar' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
+            ]);
+        $buktiBayar = $request->file('bukti_bayar')->store('public');
+
+            // if ($request -> hasFile('bukti_bayar')) {
+            //     $bukti_bayar = $request->file('bukti_bayar');
+            //     $file_name = time ().'-'. $bukti_bayar -> getClientOriginalName ();
+
+            //     $storage = 'uploads/bukti_bayar/';
+            //     $bukti_bayar->move ($storage, $file_name);
+            //     $data ['bukti_bayar'] =$storage .$file_name;
+            // }else {
+            //     $data ['bukti_bayar'] = null;
+            // }
+
+        $dataPembayaran = [
+            'bank_sekolah_id' => $request->bank_sekolah_id,
+            'wali_bank_id' => $waliBank->id,
+            'tagihan_id' => $request->tagihan_id,
+            'wali_id' => Auth::user()->id,
+            'tanggal_bayar' => $request->tanggal_bayar,
+            'status_konfirmasi' => 'belum',
+            'jumlah_dibayar' => $jumlahDibayar,
+            'bukti_bayar' => $buktiBayar,
+            'metode_pembayaran' => 'transfer',
+            'user_id' => 0,
+        ];
+
+
+        $pembayaran = Pembayaran::create($dataPembayaran);
+
+
+        // tutor 87 notifikasi
+        $userOperator = User::where('akses', 'operator')->get();
+        Notification::send($userOperator, new PembayaranNotification($pembayaran));
+        // akhir tutor 87 notifikasi
+
+        flash('Pembayaran Berhasil dan akan segera di konfirmasi oleh admin')->success();
+        return back();
     }
 }
