@@ -73,6 +73,40 @@
             min-width: 32rem;
       }
     </style>
+
+    <script>
+        //untuk pop up bukti bayar tutor 92
+        popupCenter = ({
+            url,
+            title,
+            w,
+            h
+        }) => {
+            // Fixes dual-screen position                             Most browsers      Firefox
+            const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+            const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+
+            const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document
+                .documentElement.clientWidth : screen.width;
+            const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document
+                .documentElement.clientHeight : screen.height;
+
+            const systemZoom = width / window.screen.availWidth;
+            const left = (width - w) / 2 / systemZoom + dualScreenLeft
+            const top = (height - h) / 2 / systemZoom + dualScreenTop
+            const newWindow = window.open(url, title,
+                `
+      scrollbars=yes,
+      width=${w / systemZoom}, 
+      height=${h / systemZoom}, 
+      top=${top}, 
+      left=${left}
+      `
+            )
+
+            if (window.focus) newWindow.focus();
+        }
+    </script>
   </head>
 
   <body>
@@ -84,7 +118,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
-              <span class="app-brand-logo demo">
+              {{-- <span class="app-brand-logo demo">
                 <svg
                   width="25"
                   viewBox="0 0 25 42"
@@ -138,8 +172,8 @@
                     </g>
                   </g>
                 </svg>
-              </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">SPP SEKOLAH</span>
+              </span> --}}
+              <span class="app-brand-text demo menu-text fw-bolder ms-2 text-uppercase">SPP SEKOLAH</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -212,6 +246,13 @@
               <a href="{{ route('bank.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Data Rekening Bank</div>
+              </a>
+            </li>
+
+            <li class="menu-item {{ \Route::is('pembayaran.*') ? 'active' : '' }}">
+              <a href="{{ route('pembayaran.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data Pembayaran</div>
               </a>
             </li>
 

@@ -130,7 +130,7 @@
 
                                 <tr>
                                     <td>Tanggal Pembayaran</td>
-                                    <td>: {{ $model->tanggal_bayar->format('d-F-Y ') }}</td>
+                                    <td>: {{ $model->tanggal_bayar->translatedFormat('d-F-Y ') }}</td>
                                 </tr>
 
                                 <tr>
@@ -151,25 +151,55 @@
 
                                 <tr>
                                     <td>Bukti Pembayaran</td>
-                                    <td>:<a href="{{ \Storage::url($model->bukti_bayar) }}" target="_blank"> Lihat
+                                    <td>:<a href="javascript:void[0]"
+                                            onclick="popupCenter({url: '{{ \Storage::url($model->bukti_bayar) }}', 
+                                    title: 'Bukti Pembayaran', w:900, h: 800});  ">
+                                            Lihat
                                             Bukti
                                             Pembayaran</a>
                                     </td>
                                 </tr>
 
+                                {{-- <tr>
+                                    <td> Status Konfirmasi</td>
+                                    <td> : {{ strtoupper($model->status_konfirmasi) }}</td>
+                                </tr> --}}
+
                                 <tr>
                                     <td> Status Pembayaran</td>
                                     <td> : {{ strtoupper($model->tagihan->getTagihanWali()) }}</td>
+                                </tr>
 
+                                <tr>
+                                    <td> Tanggal Konfirmasi</td>
+                                    <td> : {{ $model->tanggal_konfirmasi }}</td>
                                 </tr>
 
                             </thead>
                         </table>
-                        <a href="{{ \Storage::url($model->bukti_bayar) }}" class="btn btn-primary mt-3 center-block">
-                            Konfirmasi Bukti
-                            Pembayaran</a>
+                        {{--    untuk pop up bukti bayar tutor 93 --}}
 
 
+                        @if ($model->tanggal_konfirmasi == null)
+                            {!! Form::open([
+                                'route' => $route,
+                                'method' => 'PUT',
+                                'onsubmit' => 'return confirm ("Yakin ingin Konfirmasi data ini?")',
+                            ]) !!}
+
+                            {!! Form::hidden('pembayaran_id', $model->id, []) !!}
+
+                            {!! Form::submit('Konfirmasi Pembayaran', ['class' => 'btn btn-primary mt-5']) !!}
+
+
+                            {!! Form::close() !!}
+                        @else
+                            <div class="alert alert-primary bg-primary mt-2 mb-2 text-white text-uppercase text-center"
+                                role="alert">
+                                <h1 class="text-white text-uppercase text-center">Pembayaran
+                                    Lunas</h1>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

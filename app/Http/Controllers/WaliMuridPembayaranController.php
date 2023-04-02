@@ -82,7 +82,6 @@ class WaliMuridPembayaranController extends Controller
         $jumlahDibayar = str_replace('.', '', $request->jumlah_dibayar);
         // tutor 88
             $validasiPembayaran = Pembayaran::where('jumlah_dibayar', $jumlahDibayar)
-                        ->where ('status_konfirmasi', 'belum')
                         ->where ('tagihan_id', $request->tagihan_id)
                         ->first();
                 if ($validasiPembayaran != null) {
@@ -116,7 +115,7 @@ class WaliMuridPembayaranController extends Controller
             'tagihan_id' => $request->tagihan_id,
             'wali_id' => Auth::user()->id,
             'tanggal_bayar' => $request->tanggal_bayar,
-            'status_konfirmasi' => 'belum',
+            // 'status_konfirmasi' => 'belum',
             'jumlah_dibayar' => $jumlahDibayar,
             'bukti_bayar' =>$buktiBayar ,
             'metode_pembayaran' => 'transfer',

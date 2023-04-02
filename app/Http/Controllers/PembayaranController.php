@@ -6,6 +6,7 @@ use App\Models\Pembayaran;
 use App\Http\Requests\StorePembayaranRequest;
 use App\Http\Requests\UpdatePembayaranRequest;
 use App\Models\Tagihan;
+use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
 {
@@ -16,7 +17,11 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        //
+        $models = Pembayaran::latest()->orderBy('tanggal_konfirmasi', 'desc')->paginate(50);
+
+        $data ['models'] = $models;
+        return view ('operator.pembayaran_index', $data);
+
     }
 
     /**
@@ -38,9 +43,11 @@ class PembayaranController extends Controller
     public function store(StorePembayaranRequest $request)
     {
         $data = $request -> validated ();
-        $data ['status_konfirmasi'] = 'sudah';
+        // $data ['status_konfirmasi'] = 'sudah';
+        $data ['tanggal_konfirmasi'] = now();
         $data ['metode_pembayaran'] = 'manual';
         $tagihan = Tagihan::findOrfail($data['tagihan_id']);
+        $data ['wali_id'] = $tagihan->siswa->wali_id ?? 0;
         if ($data ['jumlah_dibayar'] >= $tagihan->tagihanDetails->sum('jumlah_biaya')) {
             $tagihan->status = 'lunas';
         }else {
@@ -63,7 +70,8 @@ class PembayaranController extends Controller
         // notifkasi sudah di baca tutor 91
         auth()->user()->unreadNotifications->where('id', request('id'))->first()?->markAsRead();
         return view('operator.pembayaran_show',[
-            'model' => $pembayaran
+            'model' => $pembayaran,
+            'route' => ['pembayaran.update', $pembayaran->id],
         ]);
     }
 
@@ -85,9 +93,19 @@ class PembayaranController extends Controller
      * @param  \App\Models\Pembayaran  $pembayaran
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePembayaranRequest $request, Pembayaran $pembayaran)
+    public function update(Request $request, Pembayaran $pembayaran)
     {
-        //
+        //tutor 93
+        // $pembayaran->status_konfirmasi = 'sudah';
+        $pembayaran ->tanggal_konfirmasi= now();
+        $pembayaran->user_id = auth()->user()->id;
+        $pembayaran->save();
+        $pembayaran->tagihan->status ='lunas';
+        
+        $pembayaran->tagihan->save();
+
+        flash ('Data Berhasil Diubah')->success();
+        return back();
     }
 
     /**

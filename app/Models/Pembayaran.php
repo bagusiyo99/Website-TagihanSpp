@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Traits\HasFormatRupiah;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pembayaran extends Model
 {
@@ -16,7 +17,17 @@ class Pembayaran extends Model
 
     
     protected $guarded = [];
-    protected $dates = ['tanggal_bayar'];
+    protected $dates = ['tanggal_bayar', 'tanggal_konfirmasi'];
+    // protected $with = ['user', 'tagihan'];
+    protected $append= ['status_konfirmasi'];
+
+        //tutor 94
+        protected function statusKonfirmasi(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($valeu) => ($this->tanggal_konfirmasi == null) ? 'Belum Di Konfirmasi ' : 'Sudah Di Konfirmasi '
+        );
+    }
 
         public function tagihan(): BelongsTo
     {

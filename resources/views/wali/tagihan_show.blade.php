@@ -52,7 +52,7 @@
 
                                     <!--//primary-info-->
                                     <div class=" col-md-6 col-sm-1 p-4">
-                                        <table class="text-white">
+                                        <table class="text-white ">
 
                                             <tr>
                                                 <td>Pembayaran ID</td>
