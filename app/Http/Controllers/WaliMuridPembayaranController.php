@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bank;
-use App\Models\BankSekolah;
-use App\Models\Pembayaran;
-use App\Models\Tagihan;
-use App\Models\User;
-use App\Models\WaliBank;
-use App\Notifications\PembayaranNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Notification;
+use App\Models\Bank;
+use App\Models\User;
+use App\Models\Tagihan;
+use App\Models\WaliBank;
+use App\Models\Pembayaran;
+use App\Models\BankSekolah;
+use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\PembayaranNotification;
 
 class WaliMuridPembayaranController extends Controller
 {
@@ -101,7 +103,7 @@ class WaliMuridPembayaranController extends Controller
             //     $bukti_bayar = $request->file('bukti_bayar');
             //     $file_name = time ().'-'. $bukti_bayar -> getClientOriginalName ();
 
-            //     $storage = 'uploads/bukti_bayar/';
+            //     $storage = 'uploads/bukti/';
             //     $bukti_bayar->move ($storage, $file_name);
             //     $data ['bukti_bayar'] =$storage .$file_name;
             // }else {
@@ -116,19 +118,28 @@ class WaliMuridPembayaranController extends Controller
             'tanggal_bayar' => $request->tanggal_bayar,
             'status_konfirmasi' => 'belum',
             'jumlah_dibayar' => $jumlahDibayar,
-            'bukti_bayar' => $buktiBayar,
+            'bukti_bayar' =>$buktiBayar ,
             'metode_pembayaran' => 'transfer',
             'user_id' => 0,
         ];
 
-
+         // tutor 90 jika data berhasil dan tidak
+        DB::beginTransaction();
+        try {
         $pembayaran = Pembayaran::create($dataPembayaran);
-
-
         // tutor 87 notifikasi
         $userOperator = User::where('akses', 'operator')->get();
         Notification::send($userOperator, new PembayaranNotification($pembayaran));
         // akhir tutor 87 notifikasi
+        DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        flash('Gagal menyimoan data pembayaran,' + $th->getMessage() )->error();
+        return back();
+            }
+
+
+
 
         flash('Pembayaran Berhasil dan akan segera di konfirmasi oleh admin')->success();
         return back();

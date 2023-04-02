@@ -40,4 +40,14 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(User::class, 'wali_id');
     }
+
+            public function bankSekolah(): BelongsTo
+    {
+        return $this->belongsTo(BankSekolah::class);
+    }
+
+            public function waliBank(): BelongsTo
+    {
+        return $this->belongsTo(WaliBank::class);
+    }
 }

@@ -49,8 +49,7 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('tagihan', TagihanController::class);
     Route::resource('pembayaran', PembayaranController::class);
     Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show');
-    Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index');;
-
+    Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index');
 });
 
     Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');
