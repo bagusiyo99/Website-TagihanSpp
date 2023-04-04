@@ -3,12 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use App\Services\WhacenterService;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class PembayaranNotification extends Notification
+class PembayaranKonfirmasiNotification extends Notification
 {
     use Queueable;
 
@@ -30,7 +29,7 @@ class PembayaranNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', WhacenterChannel::class];
+        return ['database'];
     }
 
     /**
@@ -56,20 +55,10 @@ class PembayaranNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'tagihan_id' => $this->pembayaran->tagihan_id,
-            'wali_id' => $this->pembayaran->wali_id,
-            'title' => 'Pembayaran Tagihan',
-            'messages' => $this->pembayaran->wali->name  .  ' Melakukan Pembayaran Tagihan .',
-            'url' => route('pembayaran.show', $this->pembayaran->id),
+            'pembayaran_id' => $this->pembayaran->id,
+            'title' => 'Konfirmasi Pembayaran ',
+            'messages' => ' Pembayaran Tagihan SPP Atas Nama ' .$this->pembayaran->tagihan->siswa->nama  .  ' Telah Dikonfiramsi .',
+            'url' => route('wali.pembayaran.show', $this->pembayaran->id),
         ];
-    }
-
-    //tutor 97
-      public function toWhacenter($notifiable)
-    {
-        return (new WhacenterService())
-            ->to($this->pembayaran->nohp)
-            ->line("Transaksi Pembayaran, " . $this->pembayaran->name)
-            ->line('Pembayaran kamu berhasil.');
     }
 }

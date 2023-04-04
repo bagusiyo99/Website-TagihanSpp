@@ -6,6 +6,7 @@ use App\Models\Pembayaran;
 use App\Http\Requests\StorePembayaranRequest;
 use App\Http\Requests\UpdatePembayaranRequest;
 use App\Models\Tagihan;
+use App\Notifications\PembayaranKonfirmasiNotification;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -97,6 +98,12 @@ class PembayaranController extends Controller
     {
         //tutor 93
         // $pembayaran->status_konfirmasi = 'sudah';
+
+        //tutor 96
+        $wali =  $pembayaran->wali;
+        $wali->notify(new PembayaranKonfirmasiNotification($pembayaran));
+        //akhir tutor 96
+
         $pembayaran ->tanggal_konfirmasi= now();
         $pembayaran->user_id = auth()->user()->id;
         $pembayaran->save();
@@ -104,7 +111,7 @@ class PembayaranController extends Controller
         
         $pembayaran->tagihan->save();
 
-        flash ('Data Berhasil Diubah')->success();
+        flash ('Data Berhasil dikonfirmasi')->success();
         return back();
     }
 

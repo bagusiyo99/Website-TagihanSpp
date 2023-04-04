@@ -17,6 +17,31 @@ use App\Notifications\PembayaranNotification;
 
 class WaliMuridPembayaranController extends Controller
 {
+
+        public function index()
+    {
+        $models = Pembayaran::where('wali_id', auth()->user()->id)
+        ->latest()
+        ->orderBy('tanggal_konfirmasi', 'desc')
+        ->paginate(50);
+
+        $data ['models'] = $models;
+        return view ('wali.pembayaran_index', $data);
+
+    }
+
+
+        public function show(Pembayaran $pembayaran)
+    {
+        // notifkasi sudah di baca tutor 91
+        auth()->user()->unreadNotifications->where('id', request('id'))->first()?->markAsRead();
+        return view('wali.pembayaran_show',[
+            'model' => $pembayaran,
+            'route' => ['pembayaran.update', $pembayaran->id],
+        ]);
+    }
+
+
     public function create (Request $request)
     {
         //findOrfail artinya data tidak ditemukan jika error
@@ -42,7 +67,7 @@ class WaliMuridPembayaranController extends Controller
             'tagihan_id' => $request->tagihan_id,
         ]);
 
-        return view ('wali.pembayaran_index', $data);
+        return view ('wali.pembayaran_form', $data);
 
     }
 
@@ -133,7 +158,7 @@ class WaliMuridPembayaranController extends Controller
         DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
-        flash('Gagal menyimoan data pembayaran,' + $th->getMessage() )->error();
+        flash('Gagal menyimoan data pembayaran,' . $th->getMessage() )->error();
         return back();
             }
 

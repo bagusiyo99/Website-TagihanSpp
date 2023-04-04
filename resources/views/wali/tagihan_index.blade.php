@@ -7,9 +7,8 @@
                 <h5 class="card-header">siswa</h5>
 
                 <div class="card-body">
-                    <a href="" class="btn btn-primary  mb-4">Tambah Data </a>
 
-                    <div class="table-responsive mt-4">
+                    <div class="table-responsive mt-2">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -35,8 +34,8 @@
                                         {{-- getTagihanWali di model tagihan tutorial 70 --}}
                                         <td>
                                             @if ($item->status == 'baru' || $item->status == 'angsur')
-                                                <a href="{{ route('wali.tagihan.show', $item->id) }}"
-                                                    class="btn btn-primary"> Lakukan Pembayaran</a>
+                                                <a href="{{ route('wali.tagihan.show', $item->id) }}" class="btn btn-primary">
+                                                    Lakukan Pembayaran</a>
                                             @else
                                                 <a href="" class="btn btn-warning">
                                                     Pembayaran Sudah Lunas</a>
