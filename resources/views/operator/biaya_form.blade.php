@@ -10,6 +10,38 @@
 
                     {!! Form::model($model, ['route' => $route, 'method' => $method]) !!}
 
+                    {{-- tutor 103 --}}
+                    @if (request()->filled('parent_id'))
+                        <h2>Info {{ $parentData->nama }}</h2>
+                        {!! Form::hidden('parent_id', $parentData->id, []) !!}
+                        <div class="col-md-8">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>Parent ID</td>
+                                        <td>Nama Biaya</td>
+                                        <td>Jumlah</td>
+                                        <td>Aksi</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($parentData->children as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->jumlah }}</td>
+                                            <td> <a href="{{ route('delete-biaya.item', $item->id) }}"
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="return confirm ('Anda Yakin Ingin Hapus Data Ini')">
+                                                    Hapus </a></td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                    {{-- tutor 101 --}}
 
                     <div class="form-group">
 

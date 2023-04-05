@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Biaya;
+use Spatie\ModelStatus\HasStatuses;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Siswa extends Model
 {
     use HasFactory;
     use SearchableTrait;
     protected $guarded = [];
+    use HasStatuses;
 
 //pencarian vidio part 21 
     protected $searchable = [
@@ -23,9 +27,15 @@ class Siswa extends Model
 
     ];
 
+    public function biaya(): BelongsTo
+    {
+        return $this->BelongsTo(Biaya::class);
+    }
+
+    
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->BelongsTo(User::class);
     }
 
     /**

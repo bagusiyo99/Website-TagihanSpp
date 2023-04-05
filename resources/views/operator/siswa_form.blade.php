@@ -28,6 +28,13 @@
                             <span class="text-danger">{{ $errors->first('nama') }}</span>
                         </div>
 
+
+                        <div class="form-group mt-3">
+                            <label for="biaya_id">Biaya</label>
+                            {!! Form::select('biaya_id', $listBiaya, null, ['class' => 'form-control']) !!}
+                            <span class="text-danger">{{ $errors->first('biaya_id') }}</span>
+                        </div>
+
                         <div class="form-group mt-3">
                             <label for="nisn">NISN</label>
                             {!! Form::text('nisn', null, ['class' => 'form-control']) !!}

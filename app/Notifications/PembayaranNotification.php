@@ -30,7 +30,9 @@ class PembayaranNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', WhacenterChannel::class];
+        // return ['database', WhacenterChannel::class];
+        return ['database'];
+
     }
 
     /**
@@ -65,11 +67,11 @@ class PembayaranNotification extends Notification
     }
 
     //tutor 97
-      public function toWhacenter($notifiable)
-    {
-        return (new WhacenterService())
-            ->to($this->pembayaran->nohp)
-            ->line("Transaksi Pembayaran, " . $this->pembayaran->name)
-            ->line('Pembayaran kamu berhasil.');
-    }
+    //   public function toWhacenter($notifiable)
+    // {
+    //     return (new WhacenterService())
+    //         ->to($this->pembayaran->nohp)
+    //         ->line("Transaksi Pembayaran, " . $this->pembayaran->name)
+    //         ->line('Pembayaran kamu berhasil.');
+    // }
 }

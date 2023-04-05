@@ -6,6 +6,7 @@ use App\Models\Biaya;
 use App\Http\Requests\StoreBiayaRequest;
 use App\Http\Requests\UpdateBiayaRequest;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class BiayaController extends Controller
@@ -25,9 +26,9 @@ class BiayaController extends Controller
     {
         //pencarian vidio part 21 
         if ( $request->filled('q')) {
-            $models = Biaya::with('user')->search($request->q)->paginate(50);
+            $models = Biaya::with('user')->whereNull('parent_id')->search($request->q)->paginate(50);
         } else {
-            $models = Biaya::with('user')->latest()->paginate(50);
+            $models = Biaya::with('user')->whereNull('parent_id')->latest()->paginate(50);
         }
         
 
@@ -45,9 +46,17 @@ class BiayaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // vidio part 103
+        $biaya = new Biaya();
+
+        if ( $request->filled('parent_id')) {
+            $biaya = Biaya::with('children')->findOrFail($request->parent_id);
+        }
+
         $data = [
+            'parentData' => $biaya,
             'model' => new Biaya(),
             'method' => 'POST',
             'route' => $this->routePrefix.'.store',
@@ -147,6 +156,23 @@ class BiayaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        $model = Biaya::findOrFail ($id);
+
+
+        // jika ingin memakai hapus data secara rumit tutor 103 menit 25
+        // if ($model->children->count() >=1 ) {
+        // flash ('Data Wajib Kosong Dahulu. Hapus semua Data');
+        // return back();
+        // }
+
+        $model->delete();
+        flash ('Data Berhasil DiHapus');
+        return redirect()->route('biaya.index');
+    }
+
+//tutor 103
+        public function deleteItem($id)
     {
         $model = Biaya::findOrFail ($id);
 

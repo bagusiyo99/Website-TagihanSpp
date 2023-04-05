@@ -27,6 +27,7 @@ class UpdateSiswaRequest extends FormRequest
             'wali_id' => 'nullable',
             'nama' => 'required',
             // 'nisn' => 'required|unique:siswas',
+            'biaya_id' => 'nullable|exists:biayas,id',
             'nisn' => 'required',
             'jurusan' => 'required',
             'kelas' => 'required',

@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "laravelcollective/html": "^6.4",
-        "nicolaslopezj/searchable": "^1.13"
+        "nicolaslopezj/searchable": "^1.13",
+        "spatie/laravel-model-status": "^1.11"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

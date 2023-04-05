@@ -26,7 +26,7 @@
                                     <th>NISN</th>
                                     <th>Jurusan</th>
                                     {{-- <th>foto</th> --}}
-                                    <th>Kelas</th>
+                                    <th>Tagihan</th>
                                     <th>Angkatan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -40,7 +40,11 @@
                                         <td>{{ $item->nisn }}</td>
                                         <td>{{ $item->jurusan }}</td>
                                         {{-- <td><img src="/{{ $item->foto }}" width="100px" alt=""> </td> --}}
-                                        <td>{{ $item->kelas }}</td>
+
+                                        {{-- 104 part 1 --}}
+                                        <td>{{ formatRupiah($item->biaya?->first()->total_tagihan) }}</td>
+
+
                                         <td>{{ $item->angkatan }}</td>
                                         <td>
                                             {{-- <a href="{{ route('user.edit', $item->id) }}"

@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Traits\HasFormatRupiah;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Biaya extends Model
 {
@@ -16,7 +17,7 @@ class Biaya extends Model
     use HasFormatRupiah;
 
     
-    protected $append= ['nama_biaya_full'];
+    protected $append= ['nama_biaya_full', 'total_tagihan'];
     protected $guarded = [];
 
         public function user(): BelongsTo
@@ -25,7 +26,26 @@ class Biaya extends Model
     }
 
 
- 
+        //{{-- tutor 103 --}}
+        protected function totalTagihan(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($valeu) =>$this->children()->sum('jumlah'),
+        );
+    }
+
+    /**
+     *{{-- tutor 103 --}}
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Biaya::class, 'parent_id');
+    }
+
+
+
         protected static function booted()
     {
         static::creating(function ($biaya) {
@@ -36,10 +56,10 @@ class Biaya extends Model
             $biaya->user_id= auth()->user()->id;
         });
     }
- 
+
 
     //tutorial nomor 39
-     protected function namaBiayaFull(): Attribute
+    protected function namaBiayaFull(): Attribute
     {
         return Attribute::make(
             get: fn ($valeu) => $this->nama . ' - ' .$this->formatRupiah('jumlah'),

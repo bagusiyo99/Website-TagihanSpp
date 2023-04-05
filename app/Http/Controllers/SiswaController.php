@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
+use App\Models\Biaya;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -53,6 +54,10 @@ class SiswaController extends Controller
     public function create()
     {
         $data = [
+            // 104 part 1
+            'listBiaya' => Biaya::has('children')->whereNull('parent_id')->pluck('nama', 'id'),
+
+
             'model' => new Siswa(),
             'method' => 'POST',
             'route' => $this->routePrefix.'.store',
@@ -107,7 +112,8 @@ class SiswaController extends Controller
 
         
         $data ['user_id']= auth()->user()->id;
-        Siswa::create ($data);
+        $siswa = Siswa::create ($data);
+        $siswa->setStatus('aktif');
         flash ('Data Berhasil Disimpan');
         return redirect()->route('siswa.index');
     }
@@ -136,6 +142,8 @@ class SiswaController extends Controller
     public function edit($id)
     {
          $data = [
+                        // 104 part 1
+            'listBiaya' => Biaya::has('children')->whereNull('parent_id')->pluck('nama', 'id'),
             'model' =>  Siswa::findOrFail($id),
             'method' => 'PUT',
             'route' => [$this->routePrefix.'.update', $id],

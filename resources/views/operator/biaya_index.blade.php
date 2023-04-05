@@ -22,7 +22,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Biaya</th>
-                                    <th>Jumlah</th>
+                                    <th>Total Tagihan</th>
                                     <th>Created By</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -34,7 +34,11 @@
                                         <td>{{ $item->nama }}</td>
 
                                         {{-- tutorial 32 dan 33 membuat helper  dan cara manual --}}
-                                        <td>{{ $item->formatRupiah('jumlah') }}</td>
+                                        {{-- <td>{{ $item->formatRupiah('jumlah') }}</td> --}}
+
+                                        {{-- tutor 103 --}}
+                                        <td>{{ formatRupiah($item->total_tagihan) }}</td>
+
 
                                         {{-- cara cepet --}}
                                         {{-- <td> Rp. {{ $item->jumlah }}</td> --}}
@@ -53,7 +57,7 @@
                                                 class="btn btn-success mb-2"><i class="fa-solid fa-pen-to-square"></i>
                                                 Edit</a>
 
-                                            <a href="{{ route($routePrefix . '.show', $item->id) }}"
+                                            <a href="{{ route($routePrefix . '.create', ['parent_id' => $item->id]) }}"
                                                 class="btn btn-warning mb-2"><i class="fa-solid fa-pen-to-square"></i>
                                                 Detail</a>
 

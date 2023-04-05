@@ -11,10 +11,17 @@
                         <img src="/{{ $model->foto }}" width="300px" class="mb-4" alt="">
                         <table class="table table-striped">
                             <thead>
+
+                                {{-- tutor 105 --}}
                                 <tr>
-                                    <td width="15%">ID</td>
-                                    <td>: {{ $model->id }}</td>
+                                    <td width="15%">STATUS SISWA</td>
+                                    <td>:<span
+                                            class="badge mx-2 {{ $model->status == 'aktif' ? 'bg-primary' : 'bg-danger' }}">
+                                            {{ $model->status }}</span>
+                                    </td>
                                 </tr>
+                                {{-- tutor 105 --}}
+
 
                                 <tr>
                                     <td width="15%">Nama</td>
@@ -57,7 +64,44 @@
                         </table>
                         <a href="{{ route('siswa.index') }}" class="btn btn-warning mt-5 mx-3">Kembali</a>
 
+                        <div class="col-md-8 mt-5">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td width="10%">No</td>
+                                        <td>Item Tagihan</td>
+                                        <td>Jumlah Tagihan</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($model->biaya->children as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td class="text-end">{{ formatRupiah($item->jumlah) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <td colspan="2" class="text-center"> Total Tagihan</td>
+                                    <td class="text-end">{{ formatRupiah($model->biaya->children->sum('jumlah')) }}</td>
+                                </tfoot>
+                            </table>
+                        </div>
 
+                    </div>
+                    {{-- tutor 105 --}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{ route('status.update', [
+                                'model' => 'siswa',
+                                'id' => $model->id,
+                                'status' => $model->status == 'aktif' ? 'non-aktif' : 'aktif',
+                            ]) }}"
+                                class="btn btn-primary btn-sm mt-3">
+                                {{ $model->status == 'aktif' ? 'Non-aktifkan Siswa ini' : 'Aktifkan Siswa Ini' }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
