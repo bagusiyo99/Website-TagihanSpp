@@ -9,13 +9,14 @@
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>No.Hp</th>
                                     <th>Email</th>
+                                    <th>Akses</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

@@ -19006,6 +19006,103 @@
      
 }
 
+    namespace QCod\Settings { 
+            /**
+     * 
+     *
+     */ 
+        class Facade {
+                    /**
+         * Get all settings from storage as key value pair.
+         *
+         * @param bool $fresh ignore cached
+         * @return \QCod\Settings\Setting\Collection 
+         * @static 
+         */ 
+        public static function all($fresh = false)
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->all($fresh);
+        }
+                    /**
+         * Get a setting from storage by key.
+         *
+         * @param string $key
+         * @param null $default
+         * @param bool $fresh
+         * @return mixed 
+         * @static 
+         */ 
+        public static function get($key, $default = null, $fresh = false)
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->get($key, $default, $fresh);
+        }
+                    /**
+         * Save a setting in storage.
+         *
+         * @param $key string|array
+         * @param $val string|mixed
+         * @return mixed 
+         * @static 
+         */ 
+        public static function set($key, $val = null)
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->set($key, $val);
+        }
+                    /**
+         * Check if setting with key exists.
+         *
+         * @param $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function has($key)
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->has($key);
+        }
+                    /**
+         * Remove a setting from storage.
+         *
+         * @param $key
+         * @return mixed 
+         * @static 
+         */ 
+        public static function remove($key)
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->remove($key);
+        }
+                    /**
+         * Flush setting cache.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function flushCache()
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->flushCache();
+        }
+                    /**
+         * Set the group name for settings.
+         *
+         * @param string $groupName
+         * @return \QCod\Settings\Setting\SettingEloquentStorage 
+         * @static 
+         */ 
+        public static function group($groupName)
+        {
+                        /** @var \QCod\Settings\Setting\SettingEloquentStorage $instance */
+                        return $instance->group($groupName);
+        }
+         
+    }
+     
+}
+
     namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
@@ -23354,6 +23451,7 @@ namespace  {
             class Flash extends \Laracasts\Flash\Flash {}
             class Form extends \Collective\Html\FormFacade {}
             class Html extends \Collective\Html\HtmlFacade {}
+            class Settings extends \QCod\Settings\Facade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }

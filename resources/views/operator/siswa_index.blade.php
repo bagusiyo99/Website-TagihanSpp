@@ -9,22 +9,23 @@
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
                     {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
-                    <div class="input-group">
+                    {{-- <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Cari Nama Siswa"
                             aria-label="Cari Nama" aria-describedby="button-addon2" value="{{ request('q') }}">
                         <button type="submit" class="btn btn-outline-primary" id="button-addon2"><i
                                 class="bx bx-search"></i></button>
-                    </div>
+                    </div> --}}
                     {!! Form::close() !!}
                     <div class="table-responsive mt-4">
-                        <table class="table table-striped">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Wali Murid</th>
+                                    <th>Wali Murid</th>
                                     <th>Nama</th>
                                     <th>NISN</th>
-                                    <th>Jurusan</th>
+                                    <th>Status</th>
+                                    {{-- <th>Jurusan</th> --}}
                                     {{-- <th>foto</th> --}}
                                     <th>Tagihan</th>
                                     <th>Angkatan</th>
@@ -38,11 +39,15 @@
                                         <td>{{ $item->wali->name }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->nisn }}</td>
-                                        <td>{{ $item->jurusan }}</td>
+                                        <td><span
+                                                class="badge  {{ $item->status == 'aktif' ? 'bg-primary' : 'bg-danger' }}">
+                                                {{ $item->status }}</span>
+                                        </td>
+                                        {{-- <td>{{ $item->jurusan }}</td> --}}
                                         {{-- <td><img src="/{{ $item->foto }}" width="100px" alt=""> </td> --}}
 
                                         {{-- 104 part 1 --}}
-                                        <td>{{ formatRupiah($item->biaya?->first()->total_tagihan) }}</td>
+                                        <td>{{ formatRupiah($item->biaya->children->sum('jumlah')) }}</td>
 
 
                                         <td>{{ $item->angkatan }}</td>

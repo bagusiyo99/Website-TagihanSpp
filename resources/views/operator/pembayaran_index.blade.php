@@ -30,7 +30,7 @@
                     </div>
                     {!! Form::close() !!}
                     <div class="table-responsive mt-4">
-                        <table class="table table-striped">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>

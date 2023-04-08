@@ -166,6 +166,12 @@ class BiayaController extends Controller
         // return back();
         // }
 
+        //validasi relasi ke tabel siswa 107
+        if ($model->siswa->count() >= 1) {
+        flash ('Data tidak bisa DiHapus, karena masih ada tagihan');
+        return back();
+        }
+
         $model->delete();
         flash ('Data Berhasil DiHapus');
         return redirect()->route('biaya.index');

@@ -9,15 +9,15 @@
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
                     {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
-                    <div class="input-group">
+                    {{-- <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Cari Data Siswa"
                             aria-label="Cari Data" aria-describedby="button-addon2" value="{{ request('q') }}">
                         <button type="submit" class="btn btn-outline-primary" id="button-addon2"><i
                                 class="bx bx-search"></i></button>
-                    </div>
+                    </div> --}}
                     {!! Form::close() !!}
                     <div class="table-responsive mt-4">
-                        <table class="table table-striped">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>

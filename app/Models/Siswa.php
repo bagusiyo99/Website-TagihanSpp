@@ -50,5 +50,15 @@ class Siswa extends Model
         ]);
     }
 
+    /**
+     * Get all of the comments for the Siswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tagihan(): HasMany
+    {
+        return $this->hasMany(Tagihan::class);
+    }
+
     
 }

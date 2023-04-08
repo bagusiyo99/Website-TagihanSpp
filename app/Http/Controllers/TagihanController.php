@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Biaya;
+use App\Models\Siswa;
 use App\Models\Tagihan;
+use App\Models\Pembayaran;
+use Illuminate\Http\Request;
+use App\Models\TagihanDetail;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreTagihanRequest;
 use App\Http\Requests\UpdateTagihanRequest;
-use App\Models\Biaya;
-use App\Models\Pembayaran;
-use App\Models\Siswa;
-use App\Models\TagihanDetail;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Notifications\TagihanNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TagihanController extends Controller
 {
@@ -61,9 +64,9 @@ class TagihanController extends Controller
             'button' => 'SIMPAN',
             'routePrefix' => $this->routePrefix,
             'title' => 'Tambah Data Tagihan',
-            'angkatan' => $siswa->pluck('angkatan', 'angkatan'),
-            'kelas' => $siswa->pluck('kelas', 'kelas'),
-            'biaya' => Biaya::get(),
+            // 'angkatan' => $siswa->pluck('angkatan', 'angkatan'),
+            // 'kelas' => $siswa->pluck('kelas', 'kelas'),
+            // 'biaya' => Biaya::get(),
         ];
         return view('operator.' .$this->viewCreate, $data);
     }
@@ -77,22 +80,29 @@ class TagihanController extends Controller
     public function store(StoreTagihanRequest $request)
     {
         $data = $request -> validated ();
+        DB::beginTransaction();
 
-        $biayaIdArray = $data['biaya_id'];
-        $siswa = Siswa::query();
+        // $biayaIdArray = $data['biaya_id'];
 
-        if ($data ['kelas'] !='') {
-            $siswa->where('kelas', $data['kelas']);
-        }
+        //{{-- tutor 106 --}}
 
-        if ($data ['angkatan'] !='') {
-            $siswa->where('angkatan', $data['angkatan']);
-        }
+        // $siswa = Siswa::query();
 
-        $siswa = $siswa->get();
+        // if ($data ['kelas'] !='') {
+        //     $siswa->where('kelas', $data['kelas']);
+        // }
+
+        // if ($data ['angkatan'] !='') {
+        //     $siswa->where('angkatan', $data['angkatan']);
+        // }
+
+        // $siswa = $siswa->get();
+
+        $siswa = Siswa::currentStatus('aktif')->get();
+        $wali = User::whereIn ('id', $siswa->pluck('user_id'))->get();
         foreach ($siswa as $itemSiswa) {
-            $biaya = Biaya::whereIn('id', $biayaIdArray)->get();
-                    unset ($data['biaya_id']);
+            // $biaya = Biaya::whereIn('id', $biayaIdArray)->get();
+            //         unset ($data['biaya_id']);
                     $data ['siswa_id'] = $itemSiswa->id;
                     $data ['status'] = 'baru';
                     $tanggalTagihan = Carbon::parse($data['tanggal_tagihan']);
@@ -102,8 +112,13 @@ class TagihanController extends Controller
                         ->whereMonth ('tanggal_tagihan', $bulanTagihan)
                         ->whereYear ('tanggal_tagihan', $tahunTagihan)
                         ->first();
+                        
                         if ($cekTagihan == null) {
                             $tagihan= Tagihan::create ($data);
+
+                            Notification::send($tagihan->siswa->wali, new TagihanNotification($tagihan));
+
+                            $biaya = $itemSiswa->biaya->children;
                                 foreach ($biaya as  $itemBiaya) {
                                     $detail = TagihanDetail::create([
                                         'tagihan_id' => $tagihan->id,
@@ -113,6 +128,10 @@ class TagihanController extends Controller
                                 }
                         }
         }
+
+
+
+        DB::commit();
         flash ('Data Berhasil Disimpan');
         return redirect()->route('tagihan.index');
     }
@@ -125,6 +144,8 @@ class TagihanController extends Controller
      */
     public function show(Request $request, $id)
     {
+        auth()->user()->unreadNotifications->where('id', request('id'))->first()?->markAsRead();
+
         $tagihan = Tagihan::findOrFail($id);
     
         $data ['tagihan'] = $tagihan;

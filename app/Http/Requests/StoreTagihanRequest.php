@@ -24,9 +24,12 @@ class StoreTagihanRequest extends FormRequest
     public function rules()
     {
         return [
-            'biaya_id' => 'required',
-            'angkatan' => 'nullable|numeric',
-            'kelas' => 'nullable|numeric',
+            //                     {{-- tutor 106 --}}
+            // 'biaya_id' => 'required',
+            // 'angkatan' => 'nullable|numeric',
+            // 'kelas' => 'nullable|numeric',
+
+            
             'tanggal_tagihan' => 'required|date',
             'tanggal_jatuh_tempo' => 'required|date',
             'keterangan' => 'nullable|string',

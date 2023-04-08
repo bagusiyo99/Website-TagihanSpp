@@ -9,21 +9,23 @@
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
                     {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
-                    <div class="input-group">
+                    {{-- <div class="input-group">
                         <input name="q" type="text" class="form-control" placeholder="Cari Nama Siswa"
                             aria-label="Cari Nama" aria-describedby="button-addon2" value="{{ request('a') }}">
                         <button type="submit" class="btn btn-outline-primary" id="button-addon2"><i
                                 class="bx bx-search"></i></button>
-                    </div>
+                    </div> --}}
                     {!! Form::close() !!}
                     <div class="table-responsive mt-4">
-                        <table class="table table-striped">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>kode</th>
                                     <th>Nama Bank</th>
                                     <th>Nama Rekening</th>
+                                    <th>Nomor Rekening</th>
+
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

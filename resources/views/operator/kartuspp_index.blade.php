@@ -19,7 +19,7 @@
                     </div>
                     <div class="mt-3">
                         <div class="table-responsive">
-                            <table class="table table">
+                            <table class="table table-bordered text-center">
                                 <thead>
                                     <tr>
                                         <th>No</th>

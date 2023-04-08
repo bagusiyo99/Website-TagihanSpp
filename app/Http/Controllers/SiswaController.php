@@ -80,16 +80,6 @@ class SiswaController extends Controller
         //|unique:Siswas' agar tidak sama satu sama lain
         $data = $request -> validated ();
 
-        
-        // $data = $request -> validate ([
-        //     'wali_id' => 'nullable',
-        //     'nama' => 'required',
-        //     'nisn' => 'required|unique:siswas',
-        //     'jurusan' => 'required',
-        //     'kelas' => 'required',
-        //     'angkatan' => 'required',
-        //     'foto' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
-        // ]);
 
         // if ($request->hasFile('foto')){
         //     $data['foto'] = $request->file('foto')->store('public');
@@ -167,16 +157,6 @@ class SiswaController extends Controller
         $data = $request -> validated ();
         $model= Siswa::findOrFail($id);
 
-        // $data = $request -> validate ([
-        //     'wali_id' => 'nullable',
-        //     'nama' => 'required',
-        //     'nisn' => 'required|unique:siswas,nisn,' .$id,
-        //     'jurusan' => 'required',
-        //     'kelas' => 'required',
-        //     'angkatan' => 'required',
-        //     'foto' => 'nullable|image|mimes:jpg, jpeg, png| max:3072',
-        // ]);
-
 
 
           if ($request -> hasFile('foto')) {
@@ -220,6 +200,11 @@ class SiswaController extends Controller
             if($model->foto != null){
             unlink($model->foto);
                 }
+
+        if ($model->tagihan->count() >= 1) {
+        flash ('Data tidak bisa DiHapus, karena masih ada tagihan');
+        return back();
+        }
 
         $model->delete();
         flash ('Data Berhasil DiHapus');
