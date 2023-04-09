@@ -68,7 +68,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {!! $models->links() !!}
+                        {{-- {!! $models->links() !!} --}}
                     </div>
                 </div>
             </div>

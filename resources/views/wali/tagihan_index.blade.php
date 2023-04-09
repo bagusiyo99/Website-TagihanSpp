@@ -4,12 +4,12 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">siswa</h5>
+                <h5 class="card-header">Data Siswa</h5>
 
                 <div class="card-body">
 
                     <div class="table-responsive mt-2">
-                        <table class="table table-striped">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>

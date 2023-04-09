@@ -16,25 +16,28 @@
 
                         <div class="form-group mt-3">
                             <label for="app_name">Nama Instansi</label>
-                            {!! Form::text('app_name', null, ['class' => 'form-control', 'autofocus']) !!}
+                            {!! Form::text('app_name', settings()->get('app_name'), ['class' => 'form-control', 'autofocus']) !!}
                             <span class="text-danger">{{ $errors->first('app_name') }}</span>
                         </div>
 
                         <div class="form-group mt-3">
                             <label for="app_email">Email Instansi</label>
-                            {!! Form::text('app_email', null, ['class' => 'form-control rupiah']) !!}
+                            {!! Form::text('app_email', settings()->get('app_email'), ['class' => 'form-control ']) !!}
                             <span class="text-danger">{{ $errors->first('app_email') }}</span>
                         </div>
 
                         <div class="form-group mt-3">
-                            <label for="app_phone">Nama Telphone</label>
-                            {!! Form::text('app_phone', null, ['class' => 'form-control', 'autofocus']) !!}
+                            <label for="app_phone">Alamat Instansi</label>
+                            {!! Form::textarea('app_phone', settings()->get('app_phone'), [
+                                'class' => 'form-control',
+                                'rows' => 3,
+                            ]) !!}
                             <span class="text-danger">{{ $errors->first('app_phone') }}</span>
                         </div>
 
                         <div class="form-group mt-3">
-                            <label for="app_address">Alamat Instansi</label>
-                            {!! Form::text('app_address', null, ['class' => 'form-control rupiah']) !!}
+                            <label for="app_address"> Nomor Instansi</label>
+                            {!! Form::text('app_address', settings()->get('app_address'), ['class' => 'form-control ']) !!}
                             <span class="text-danger">{{ $errors->first('app_address') }}</span>
                         </div>
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasFormatRupiah;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,8 +21,16 @@ class Tagihan extends Model
     protected $guarded = [];
     protected $dates = ['tanggal_tagihan', 'tanggal_jatuh_tempo'];
     protected $with = ['user','siswa', 'tagihanDetails'];
+    protected $append= [ 'total_tagihan'];
 
-    
+
+        //{{-- tutor 103 --}}
+        protected function totalTagihan(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($valeu) =>$this->tagihanDetails()->sum('jumlah_biaya'),
+        );
+    }
 
     public function user(): BelongsTo
     {

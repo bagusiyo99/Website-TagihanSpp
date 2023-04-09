@@ -29,8 +29,8 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
-                    <div class="table-responsive mt-4">
-                        <table class="table table-striped">
+                    <div class="table-responsive mt-4" id="data">
+                        <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>No</th>

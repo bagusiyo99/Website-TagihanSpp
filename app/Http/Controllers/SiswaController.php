@@ -101,9 +101,10 @@ class SiswaController extends Controller
         }
 
         
-        $data ['user_id']= auth()->user()->id;
-        $siswa = Siswa::create ($data);
-        $siswa->setStatus('aktif');
+        // $data ['user_id']= auth()->user()->id;
+        Siswa::create ($data);
+                // $siswa->setStatus('aktif'); tutor 112
+
         flash ('Data Berhasil Disimpan');
         return redirect()->route('siswa.index');
     }
@@ -179,7 +180,7 @@ class SiswaController extends Controller
             $data ['wali_status']= 'oke';
         }
         
-        $data ['user_id']= auth()->user()->id;
+        // $data ['user_id']= auth()->user()->id;
         
         $model->fill ($data);
         $model->save();

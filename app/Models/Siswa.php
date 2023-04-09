@@ -60,5 +60,19 @@ class Siswa extends Model
         return $this->hasMany(Tagihan::class);
     }
 
-    
+            protected static function booted()
+    {
+        static::creating(function ($siswa) {
+            $siswa->user_id= auth()->user()->id;
+        });
+
+        static::created(function ($siswa) {
+        $siswa->setStatus('aktif');
+        });
+
+
+        static::updating(function ($siswa) {
+            $siswa->user_id= auth()->user()->id;
+        });
+    }
 }

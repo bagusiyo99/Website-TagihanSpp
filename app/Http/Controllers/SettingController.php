@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Settings;
 
 class SettingController extends Controller
 {
@@ -13,6 +14,10 @@ class SettingController extends Controller
 
     public function store  (Request $request)
     {
-        return view('operator.setting_form');
+        $dataSettings = $request->except('_token');
+        settings()->set($dataSettings);
+        flash ('Data Berhasil Disimpan');
+
+        return back();
     }
 }

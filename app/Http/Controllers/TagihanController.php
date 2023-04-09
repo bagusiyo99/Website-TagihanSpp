@@ -144,7 +144,7 @@ class TagihanController extends Controller
      */
     public function show(Request $request, $id)
     {
-        auth()->user()->unreadNotifications->where('id', request('id'))->first()?->markAsRead();
+        // auth()->user()->unreadNotifications->where('id', request('id'))->first()?->markAsRead();
 
         $tagihan = Tagihan::findOrFail($id);
     
