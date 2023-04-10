@@ -51,7 +51,13 @@
                                     <td>: {{ $model->tagihan_id }}</td>
                                 </tr>
 
-
+                                <tr>
+                                    <td>Invoice Tagihan</td>
+                                    <td>: <a href="{{ route('invoice.show', $model->tagihan_id) }}" target="blank"
+                                            class="btn btn-primary">
+                                            Cetak</a>
+                                    </td>
+                                </tr>
 
 
                                 <tr>
@@ -157,6 +163,14 @@
                                             Lihat
                                             Bukti
                                             Pembayaran</a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Kwitansi Pembayaran</td>
+                                    <td>: <a href="{{ route('kwitansipembayaran.show', $model->id) }}" target="blank"
+                                            class="btn btn-primary">
+                                            Cetak</a>
                                     </td>
                                 </tr>
 

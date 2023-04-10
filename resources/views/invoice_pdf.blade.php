@@ -3,12 +3,16 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Tagihan Siswa</title>
+    <title>{{ $title }}</title>
 
     <style>
         .text-logo {
             text-align: left;
             vertical-align: middle;
+        }
+
+        .kwitansi {
+            margin-top: 20px;
         }
 
         .button {
@@ -198,6 +202,22 @@
                 <td colspan="2" style="text-align: center">Total Tagihan</td>
 
                 <td>{{ formatRupiah($tagihan->total_tagihan) }}</td>
+            </tr>
+            <br>
+
+            <tr>
+                <td colspan="3">
+                    <br>
+                </td>
+            </tr>
+            <tr class="kwitansi">
+                <td style=" text-align: end;" colspan="3">Lampung,
+                    {{ now()->translatedFormat('d F Y') }} <br />
+                    Hormat Kami, <br />
+                    <br />
+                    <br />
+                </td>
+
             </tr>
         </table>
         {{-- <a href="{{ url()->current() . '?output=pdf' }}" class="button"> Download</a> --}}

@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
-                    <div class="table-responsive mt-4" id="data">
+                    <div class="table-responsive mt-4">
                         <table id="data" class="table table-bordered text-center">
                             <thead>
                                 <tr>

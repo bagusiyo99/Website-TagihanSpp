@@ -52,7 +52,13 @@
                                 </tr>
 
 
-
+                                <tr>
+                                    <td>Invoice Tagihan</td>
+                                    <td>: <a href="{{ route('invoice.show', $model->tagihan_id) }}" target="blank"
+                                            class="btn btn-primary">
+                                            Cetak</a>
+                                    </td>
+                                </tr>
 
                                 <tr>
                                     <td>Total Tagihan</td>
@@ -168,6 +174,14 @@
                                 <tr>
                                     <td> Status Pembayaran</td>
                                     <td> : {{ strtoupper($model->tagihan->getTagihanWali()) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Kwitansi Pembayaran</td>
+                                    <td>: <a href="{{ route('kwitansipembayaran.show', $model->id) }}" target="blank"
+                                            class="btn btn-primary">
+                                            Cetak</a>
+                                    </td>
                                 </tr>
 
                                 <tr>

@@ -83,7 +83,7 @@
 
                                         </table>
                                         <a class="btn btn-warning text-white mt-2"
-                                            href="{{ route('wali.invoice.show', $tagihan->id) }}" target="blank"><i
+                                            href="{{ route('invoice.show', $tagihan->id) }}" target="blank"><i
                                                 class="fa fa-file-pdf"></i>
                                             Cetak Invoice Tagihan</a>
 

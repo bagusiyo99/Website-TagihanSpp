@@ -6,6 +6,7 @@ use App\Http\Controllers\BankSekolahController;
 use App\Http\Controllers\BerandaOperatorController;
 use App\Http\Controllers\BerandaWaliController;
 use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KartuSppController;
 use App\Http\Controllers\KwitansiPembayaranController;
 use App\Http\Controllers\PembayaranController;
@@ -53,7 +54,6 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('pembayaran', PembayaranController::class);
     Route::resource('setting', SettingController::class);
 
-    Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show');
     Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index');
 
     // {{-- tutor 103 --}}
@@ -79,12 +79,15 @@ Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(f
     Route::resource('siswa', WaliMuridController::class);
     Route::resource('tagihan', WaliMuridTagihanController::class);
     Route::resource('pembayaran', WaliMuridPembayaranController::class);
-    Route::resource('invoice', WaliMuridInvoiceController::class);
 
 
 
 
 });
+
+    Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show')->middleware('auth');
+
+    Route::resource('invoice', InvoiceController::class)->middleware('auth');
 
 
 Route::get('logout', function () {

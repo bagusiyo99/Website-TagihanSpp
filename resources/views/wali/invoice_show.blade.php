@@ -1,6 +1,6 @@
-@extends('layouts.app_sneat_blank')
+{{-- @extends('layouts.app_sneat_blank') --}}
 
-@section('content')
+{{-- @section('content')
     <style>
         body {
             margin-top: 20px;
@@ -245,40 +245,40 @@
                                                             <td>{{ $item->nama_biaya }}</td>
 
                                                             {{-- dari app/helpers/helper.php --}}
-                                                            <td>{{ formatRupiah($item->jumlah_biaya) }}</td>
-                                                        </tr>
-                                                    @endforeach
+{{-- <td>{{ formatRupiah($item->jumlah_biaya) }}</td>
+</tr>
+@endforeach
 
-                                                    <tr>
-                                                        <td>&nbsp;</td>
-                                                        <td colspan="1">
+<tr>
+    <td>&nbsp;</td>
+    <td colspan="1">
 
-                                                            <h5 class="text-success">
-                                                                <strong>Total Tagihan</strong>
-                                                            </h5>
-                                                        </td>
-                                                        <td>
+        <h5 class="text-success">
+            <strong>Total Tagihan</strong>
+        </h5>
+    </td>
+    <td>
 
-                                                            <h5 class="text-success">
-                                                                <strong>{{ formatRupiah($tagihan->total_tagihan) }}</strong>
-                                                            </h5>
-                                                        </td>
-                                                    </tr>
+        <h5 class="text-success">
+            <strong>{{ formatRupiah($tagihan->total_tagihan) }}</strong>
+        </h5>
+    </td>
+</tr>
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Row end -->
-                            </div>
-                            <div class="invoice-footer">
-                                Terima Kasih
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+<div class="invoice-footer">
+    Terima Kasih
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+@endsection --}}
