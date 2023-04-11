@@ -66,7 +66,7 @@
                                                 $item->id,
                                                 'siswa_id' => $item->siswa_id,
                                                 'bulan' => $item->tanggal_tagihan->format('m'),
-                                                'tahun' => $item->tanggal_tagihan->format('m'),
+                                                'tahun' => $item->tanggal_tagihan->format('Y'),
                                             ]) }}"
                                                 class="btn btn-warning mb-2"><i class="fa-solid fa-pen-to-square"></i>
                                                 Detail</a>

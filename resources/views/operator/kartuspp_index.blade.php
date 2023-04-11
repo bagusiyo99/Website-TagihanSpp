@@ -13,7 +13,7 @@
                                     class="ml-1">Smk Bagus</span></div>
 
                             <div class="billed"><span class="font-weight-bold text-uppercase">Nama Siswa: </span><span
-                                    class="ml-1">{{ $siswa->nama }}</span></div>
+                                    class="ml-1"></span></div>
                         </div>
 
                     </div>
@@ -24,7 +24,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Bulan Tagihan</th>
-                                        <th>Jumlah</th>
+                                        {{-- <th>Jumlah</th> --}}
                                         <th>Paraf</th>
                                         <th>Total</th>
 
@@ -35,8 +35,8 @@
                                     @foreach ($tagihan as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tanggal_tagihan->translatedFormat('f Y') }}</td>
-                                            <td>{{ formatRupiah($item->jumlah_biaya) }}</td>
+                                            <td>{{ $item->tanggal_tagihan->translatedFormat('F Y') }}</td>
+                                            {{-- <td>{{ formatRupiah($item->jumlah_biaya) }}</td> --}}
                                             <td>
                                                 <ul>
                                                     @foreach ($item->tagihanDetails as $itemDetails)

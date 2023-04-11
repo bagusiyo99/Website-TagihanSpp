@@ -12,9 +12,11 @@ class KartuSppController extends Controller
         $tagihan = Tagihan::where('siswa_id', $request->siswa_id)
         ->whereYear('tanggal_tagihan', $request->tahun)
         ->get();
-
-        $data['tagihan'] =$tagihan;
-       $siswa = $tagihan->first()->siswa;
-        return view('operator.kartuspp_index',$data);
+        
+        $siswa = $tagihan->first()->siswa;
+        return view('operator.kartuspp_index',[
+            'tagihan' => $tagihan,
+            'siswa' => $siswa
+        ]);
     }
 }

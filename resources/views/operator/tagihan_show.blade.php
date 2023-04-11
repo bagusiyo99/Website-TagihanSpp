@@ -21,12 +21,12 @@
                             <td> : {{ $siswa->nama }}</td>
                         </tr>
                     </table>
-                    {{-- <a href="{{ route('kartuspp.index', [
+                    <a href="{{ route('kartuspp.index', [
                         'siswa_id' => $siswa->id,
                         'tahun' => request('tahun'),
                     ]) }}"
-                        class="btn btn-primary mt-5" target="blank"><i class="fa fa-file"> Kartu Tagihan
-                            SPP</i></a> --}}
+                        class="btn btn-primary mt-2" target="blank"><i class="fa fa-file"> </i> Kartu
+                        SPP</a>
 
                 </div>
             </div>
@@ -63,7 +63,13 @@
                                 <td>{{ formatRupiah($tagihan->tagihanDetails->sum('jumlah_biaya')) }}</td>
                             </tr>
                         </tfoot>
+
                     </table>
+
+                    <a href="{{ route('invoice.show', $tagihan->id) }}" target="blank" class="btn btn-primary mt-2">
+                        Cetak Invoice</a>
+
+
                 </div>
 
 
