@@ -1,10 +1,16 @@
+<style>
+    .tba {
+        background-color: rgb(35, 148, 60);
+        color: rgb(243, 241, 241);
+    }
+</style>
 @extends('layouts.app_sneat')
 
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">Data Tagihan {{ strtoupper($periode) }}</h5>
+                {{-- <h5 class="card-header">Data Tagihan {{ strtoupper($periode) }}</h5>
                 <div class="card-body">
                     <table class="table table-sm">
                         <tr>
@@ -21,26 +27,115 @@
                             <td> : {{ $siswa->nama }}</td>
                         </tr>
                     </table>
-                    <a href="{{ route('kartuspp.index', [
-                        'siswa_id' => $siswa->id,
-                        'tahun' => request('tahun'),
-                    ]) }}"
-                        class="btn btn-primary mt-2" target="blank"><i class="fa fa-file"> </i> Kartu
-                        SPP</a>
 
-                </div>
+
+                </div> --}}
+
+                <header class=" pt-4 pt-md-0 bg-secondary">
+                    <div class="row">
+                        <div class="col-block col-md-auto text-center text-md-start">
+                            <img src="/{{ $siswa->foto }}" alt="{{ $siswa->nama }}" width="250px" height="250px">
+                        </div>
+                        <!--//col-->
+                        <div class="col">
+                            <div class="row p-3 justify-content-center justify-content-md-between">
+                                <div class="primary-info col-md-6 col-sm-12">
+                                    <h2 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">
+                                        TAGIHAN SPP {{ strtoupper($siswa->nama) }}</h2>
+                                    <table class="text-white mt-3">
+
+                                        <tr>
+                                            <td width="60">NAMA</td>
+                                            <td> : {{ strtoupper($siswa->nama) }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td> NISN</td>
+                                            <td> : {{ strtoupper($siswa->nisn) }}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td> JURUSAN</td>
+                                            <td> : {{ strtoupper($siswa->jurusan) }}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td> KELAS</td>
+                                            <td> : {{ strtoupper($siswa->kelas) }}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td> ANGKATAN</td>
+                                            <td> : {{ strtoupper($siswa->angkatan) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                                <!--//primary-info-->
+                                <div class=" col-md-6 col-sm-1 p-4">
+                                    <table class="text-white ">
+
+                                        <tr>
+                                            <td>Pembayaran ID</td>
+                                            <td> : #SB-{{ strtoupper($tagihan->id) }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td> Tanggal Tagihan</td>
+                                            <td> :
+                                                {{ strtoupper($tagihan->tanggal_tagihan->translatedformat('d F Y')) }}
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td> Tanggal Jatuh Tempo</td>
+                                            <td> :
+                                                {{ strtoupper($tagihan->tanggal_jatuh_tempo->translatedformat('d F Y')) }}
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td> Status Pembayaran</td>
+                                            <td> : {{ strtoupper($tagihan->getTagihanWali()) }}</td>
+                                        </tr>
+
+
+                                    </table>
+                                    <a class="btn btn-warning text-white mt-2"
+                                        href="{{ route('invoice.show', $tagihan->id) }}" target="blank"><i
+                                            class="fa fa-file-pdf"></i>
+                                        Cetak Invoice Tagihan</a>
+
+                                </div>
+                                <!--//secondary-info-->
+                            </div>
+                            <!--//row-->
+
+                        </div>
+                        <!--//col-->
+                    </div>
+                    <!--//row-->
+                </header>
             </div>
         </div>
     </div>
 
     <div class="row mt-4">
+        {{-- DATA Tagihan --}}
+
         <div class="col-md-5">
             <div class="card">
                 <h5 class="card-header"> Data Tagihan {{ $periode }}</h5>
                 <div class="card-body">
                     <table class="table table-sm mt-2 table-bordered">
                         <thead>
-                            <tr>
+                            <tr class="table-primary">
                                 <th>No</th>
                                 <th>Nama Tagihan</th>
                                 <th>Jumlah Tagihan</th>
@@ -59,7 +154,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="2">Total Pembayaran</td>
+                                <td class="text-center" colspan="2">Total Pembayaran</td>
                                 <td>{{ formatRupiah($tagihan->tagihanDetails->sum('jumlah_biaya')) }}</td>
                             </tr>
                         </tfoot>
@@ -74,16 +169,17 @@
 
 
             </div>
-        </div>
 
-        <div class="col-md-7 ">
-            <div class="card">
+            {{-- DATA PEMBAYARAN --}}
+
+            <div class="card mt-3">
+                <h5 class="card-header "> DATA PEMBAYARAN</h5>
+
                 <div class="card-body">
 
-                    <h5 class="card-header pb-0  px-0"> DATA PEMBAYARAN</h5>
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
+                            <tr class="table-primary">
                                 <th>#</th>
                                 <th>Tanggal</th>
                                 <th>Jumlah</th>
@@ -102,9 +198,13 @@
                         </thead>
                     </table>
 
-                    <h5 class="text-danger mt-3">Status Pembayaran : {{ $tagihan->status }}</h5>
+                    <h5 class="text-danger mt-3 ">Status Pembayaran : {{ strtoupper($tagihan->status) }}</h5>
 
                 </div>
+
+                <hr>
+
+
                 <h5 class="card-header"> Form Pembayaran</h5>
 
                 <div class="card-body">
@@ -132,6 +232,51 @@
                     {!! Form::close() !!}
                 </div>
 
+            </div>
+        </div>
+
+
+
+        {{-- KARTU SPP --}}
+        <div class="col-md-7 ">
+            <div class="card ">
+                <h5 class="card-header "> kartu Spp</h5>
+
+                <div class="card-body">
+                    <table class="table table-bordered text-center ">
+                        <tr class="table-primary">
+                            <th width="10">No</th>
+
+                            <th>Bulan</th>
+
+                            <th>Jumlah Tagihan</th>
+                            <th>Tanggal Bayar</th>
+
+                            <th>Paraf</th>
+                        </tr>
+
+                        @foreach ($kartuSpp as $item)
+                            <tr class="item">
+                                <td>{{ $loop->iteration }}</td>
+
+                                <td>
+                                    {{ $item['bulan'] . '  ' . $item['tahun'] }}</td>
+
+                                {{-- dari app/helpers/helper.php --}}
+                                <td>{{ formatRupiah($item['total_tagihan']) }}</td>
+                                <td>{{ $item['tanggal_bayar'] }}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        @endforeach
+                    </table>
+
+                    <a href="{{ route('kartuspp.index', [
+                        'siswa_id' => $siswa->id,
+                        'tahun' => request('tahun'),
+                    ]) }}"
+                        class="btn btn-primary mt-2 " target="blank"><i class="fa fa-file"> </i> Cetak Kartu
+                        SPP</a>
+                </div>
             </div>
         </div>
 

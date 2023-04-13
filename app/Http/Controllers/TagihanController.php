@@ -146,8 +146,43 @@ class TagihanController extends Controller
     {
         auth()->user()->unreadNotifications->where('id', request('id'))->first()?->markAsRead();
 
+        // tutor 139
+        $siswa = Siswa::findOrFail($request->siswa_id);
+
+        $arrayData = [];
+        $tahun =  $request->tahun;
+        foreach (bulanSPP() as $bulan) {
+            if ($bulan == 1) {
+                $tahun = $tahun ;
+            }
+            $tagihan = Tagihan::where('siswa_id', $request->siswa_id)
+            ->whereYear('tanggal_tagihan', $tahun)
+            ->whereMonth('tanggal_tagihan', $bulan)
+            ->first();
+
+            $tanggalBayar = '';
+            if ($tagihan != null && $tagihan->status !='baru') {
+                $tanggalBayar = $tagihan->pembayaran->first()->tanggal_bayar->format('d F Y ');
+            }
+
+            $arrayData[] = [
+                'bulan' => ubahNamaBulan ($bulan),
+                'tahun' => $tahun,
+                'total_tagihan' => $tagihan->total_tagihan ?? 0,
+                'status_tagihan' =>  ($tagihan == null) ?  false:true,
+                'status_pembayaran' =>  ($tagihan == null) ?  'Belum Bayar' : $tagihan->status  ,
+                'tanggal_bayar' => $tanggalBayar,
+            ];
+        }
+        // akhir tutor 139
+
+
         $tagihan = Tagihan::findOrFail($id);
     
+        // tutor 139
+        $data ['kartuSpp'] = collect ($arrayData);
+        // akhir tutor 139
+
         $data ['tagihan'] = $tagihan;
         $data ['siswa'] = $tagihan->siswa;
         $data ['periode'] = Carbon::parse($tagihan->tanggal_tagihan)->translatedformat('F Y');

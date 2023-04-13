@@ -19,8 +19,9 @@
                                     <th>Jurusan</th>
                                     {{-- <th>foto</th> --}}
                                     <th>Kelas</th>
-                                    <th>Angkatan</th>
+                                    {{-- <th>Angkatan</th> --}}
                                     <th>biaya</th>
+                                    <th>Kartu Spp</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,12 +34,19 @@
                                         <td>{{ $item->jurusan }}</td>
                                         {{-- <td><img src="/{{ $item->foto }}" width="100px" alt=""> </td> --}}
                                         <td>{{ $item->kelas }}</td>
-                                        <td>{{ $item->angkatan }}</td>
+                                        {{-- <td>{{ $item->angkatan }}</td> --}}
                                         <td>
                                             <a href="{{ route('wali.siswa.show', $item->id) }}" class="btn btn-primary">
                                                 {{ formatRupiah($item->biaya->children->sum('jumlah')) }}
                                             </a>
                                         </td>
+                                        <td> <a href="{{ route('kartuspp.index', [
+                                            'siswa_id' => $item->id,
+                                            'tahun' => date('Y'),
+                                        ]) }}"
+                                                class="btn btn-primary" target="blank"><i class="fa fa-file"> </i>
+                                                Kartu
+                                                SPP</a></td>
                                     </tr>
                                 @empty
                                     <tr>

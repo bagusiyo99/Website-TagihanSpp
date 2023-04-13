@@ -1,11 +1,12 @@
-{{-- tutor 126 --}}
+{{-- tutor 132 --}}
+
 
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $title }}</title>
+    <title>SIswa</title>
 
     <style>
         .text-logo {
@@ -15,6 +16,27 @@
 
         .kwitansi {
             margin-top: 20px;
+        }
+
+        .table-tagihan {
+            border: 1px solid #171717;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+
+        .table-tagihan th {
+            background: #4CAF50;
+            color: white;
+            border: 1px solid #171717;
+            padding: 4px;
+            text-align: center;
+        }
+
+        .table-tagihan td {
+            border: 1px solid #171717;
+            padding: 4px;
+            text-align: center;
         }
 
         .button {
@@ -83,9 +105,10 @@
             padding-bottom: 20px;
         }
 
+        /*
         .invoice-box table tr.item td {
             border-bottom: 1px solid #eee;
-        }
+        } */
 
         .invoice-box table tr.item.last td {
             border-bottom: none;
@@ -135,7 +158,7 @@
                 <td width="80">
                     <img src="/logo/LOGO.png" width="130px" />
                 </td>
-                <td colspan="2" style="text-align: center; vertical-align: middle;">
+                <td colspan="5" style="text-align: center; vertical-align: middle;">
                     <div style="font-size:27px; font-weight:700;">Sekolah Menengah Atas Bagus Bandar Lampung</div>
                     <div style="text-align: center; font-size:19px; margin-top:5px;"> Gedung Pelayanan Pembayaran
                         Tagihan Siswa Lantai 1 (SMA Bagus)
@@ -149,7 +172,7 @@
             </tr>
 
             <tr>
-                <td colspan="3">
+                <td colspan="5">
                     <hr>
                 </td>
             </tr>
@@ -159,53 +182,58 @@
                     <table>
                         <tr>
                             <td>
-                                Tagihan untuk : {{ $tagihan->siswa->nama }} <br>
-                                NISN: {{ $tagihan->siswa->nisn }}<br>
-                                Kelas : {{ $tagihan->siswa->kelas }}<br>
-                                Jurusan : {{ $tagihan->siswa->jurusan }}
+                                Tagihan untuk : {{ $siswa->nama }} <br>
+                                NISN: {{ $siswa->nisn }}<br>
+                                Kelas : {{ $siswa->kelas }}<br>
+                                Jurusan : {{ $siswa->jurusan }}
 
-                            </td>
-
-                            <td>
-                                <div>Nomor Tagihan - {{ $tagihan->id }}</div>
-                                <div>Tanggal Tagihan -
-                                    {{ strtoupper($tagihan->tanggal_tagihan->translatedformat('d F Y')) }}
-                                </div>
-                                <div>Jatuh Tempo Tagihan -
-                                    {{ strtoupper($tagihan->tanggal_jatuh_tempo->translatedformat('d F Y')) }}
-                                </div>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
 
-            <tr class="heading">
-                <td width="10" style="text-align: center">No</td>
+            <tr>
+                <td colspan="2">
+                    <table width="100%" class="table-tagihan">
+                        <tr class="heading">
+                            <th width="10">No</th>
 
-                <td style="text-align: start">Item Tagihan</td>
+                            <th>Bulan</th>
 
-                <td style="text-align: end;">Sub-Total</td>
+                            <th>Jumlah Tagihan</th>
+                            <th>Tanggal Bayar</th>
+
+                            <th>Paraf</th>
+                            <th>Keterangan</th>
+                        </tr>
+
+                        @foreach ($kartuSpp as $item)
+                            <tr class="item">
+                                <td>{{ $loop->iteration }}</td>
+
+                                <td style="text-align: center">
+                                    {{ $item['bulan'] . '  ' . $item['tahun'] }}</td>
+
+                                {{-- dari app/helpers/helper.php --}}
+                                <td>{{ formatRupiah($item['total_tagihan']) }}</td>
+                                <td>{{ $item['tanggal_bayar'] }}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </td>
             </tr>
 
-            @foreach ($tagihan->tagihanDetails as $item)
-                <tr class="item">
-                    <td style="text-align: center">{{ $loop->iteration }}</td>
-
-                    <td style="text-align: start">{{ $item->nama_biaya }}</td>
-
-                    {{-- dari app/helpers/helper.php --}}
-                    <td style="text-align: end;">{{ formatRupiah($item->jumlah_biaya) }}</td>
-                </tr>
-            @endforeach
 
 
-            <tr class="total" style="background: #eceaea">
-                <td colspan="2" style="text-align: center">Total Tagihan</td>
+            {{-- <tr class="total" style="background: #eceaea">
+                <td colspan="2" >Total Tagihan</td>
 
                 <td>{{ formatRupiah($tagihan->total_tagihan) }}</td>
             </tr>
-            <br>
+            <br> --}}
 
             <tr>
                 <td colspan="3">
@@ -222,7 +250,7 @@
 
             </tr>
         </table>
-        <a href="{{ url()->current() . '?output=pdf' }}" class="button"> Download</a>
+        <a href="{{ url()->full() . '&output=pdf' }}" class="button"> Download</a>
         <a href="" onclick="window.print()" class="button"> Cetak</a>
 
     </div>

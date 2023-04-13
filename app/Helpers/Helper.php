@@ -1,8 +1,34 @@
 <?php
 
- function formatRupiah($nominal)
+
+function bulanSPP() {
+  return [
+    1,2,3,4,5,6,7,8,9,10,11,12,
+  ];
+}
+
+function ubahNamaBulan($angka) {
+  $namaBulan = [
+    '' => '',
+    '1' => 'Januari',
+    '2' => 'Febuari',
+    '3' => 'Maret',
+    '4' => 'April',
+    '5' => 'Mei',
+    '6' => 'juni',
+    '7' => 'Juli',
+    '8' => 'Agustus',
+    '9' => 'September',
+    '10' => 'Oktober',
+    '11' => 'November',
+    '12' => 'Desember',
+  ];
+    return $namaBulan[$angka];
+}
+
+    function formatRupiah($nominal)
 {
-    Return "Rp " . number_format($nominal, 0, ',' ,'.');
+    return "Rp " . number_format($nominal, 0, ',' ,'.');
 }
 
 function terbilang($x) {

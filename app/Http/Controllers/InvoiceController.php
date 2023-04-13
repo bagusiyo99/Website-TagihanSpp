@@ -25,11 +25,8 @@ class InvoiceController extends Controller
         $data ['title'] = 'Kwitansi Pembayaran No #'.$tagihan->id;
 
 
-        if (request ('output')== 'pdf') {
-            $pdf = Pdf::loadView('invoice_pdf', $data);
-            $namaFile = "invoice tagihan" .$tagihan->siswa->nama. 'bulan' . $tagihan->tanggal_tagihan->translatedformat(' F Y') . '.pdf';
-            return $pdf->download($namaFile);        
-        }
+        
+        
         
         // return view('wali.invoice_show', $data);  
         return view('invoice_pdf', $data);  

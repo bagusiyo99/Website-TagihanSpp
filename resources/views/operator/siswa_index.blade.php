@@ -19,7 +19,7 @@
                     <div class="table-responsive mt-4">
                         <table id="data" class="table table-bordered text-center">
                             <thead>
-                                <tr>
+                                <tr class=" text-center">
                                     <th>No</th>
                                     <th>Wali Murid</th>
                                     <th>Nama</th>

@@ -54,7 +54,6 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::resource('pembayaran', PembayaranController::class);
     Route::resource('setting', SettingController::class);
 
-    Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index');
 
     // {{-- tutor 103 --}}
     Route::get ('delete-biaya-item/{id}', [BiayaController::class, 'deleteItem'])->name('delete-biaya.item');
@@ -66,8 +65,6 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
 });
 
     Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');
-
-
 
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
 
@@ -85,6 +82,9 @@ Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(f
 
 });
 
+ // {{-- tutor 132 --}}
+    Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index')->middleware('auth');
+    // {{-- tutor 131 --}}
     Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show')->middleware('auth');
 
     Route::resource('invoice', InvoiceController::class)->middleware('auth');

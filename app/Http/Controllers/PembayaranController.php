@@ -55,7 +55,9 @@ class PembayaranController extends Controller
             $tagihan->status = 'angsur';
         }
         $tagihan->save();
-        Pembayaran::create($data);
+        $pembayaran = Pembayaran::create($data);
+        $wali =  $pembayaran->wali;
+        $wali->notify(new PembayaranKonfirmasiNotification($pembayaran));
         flash ('Data Berhasil Disimpan');
         return back();
     }

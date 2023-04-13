@@ -52,7 +52,10 @@
                                         <td>{{ $item->siswa->nama }}</td>
                                         <td>{{ $item->siswa->nisn }}</td>
                                         <td>{{ $item->tanggal_tagihan->format('d-F-Y ') }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td><span
+                                                class="badge  {{ $item->status == 'lunas' ? 'bg-primary' : 'bg-danger' }}">
+                                                {{ $item->status }}</span>
+                                        </td>
                                         <td>{{ formatRupiah($item->tagihanDetails->sum('jumlah_biaya')) }}</td>
                                         <td>
 
