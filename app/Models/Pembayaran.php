@@ -29,6 +29,18 @@ class Pembayaran extends Model
         );
     }
 
+        public function konfirmasi()
+    {
+        if ($this->status_konfirmasi =='Belum Di Konfirmasi ') {
+            return 'Belum Di Konfirmasi ';
+        }
+
+        if ($this->status_konfirmasi =='Sudah Di Konfirmasi') {
+            return 'Sudah Di Konfirmasi';
+        }
+        return $this->status;
+    }
+
         public function tagihan(): BelongsTo
     {
         return $this->belongsTo(Tagihan::class);

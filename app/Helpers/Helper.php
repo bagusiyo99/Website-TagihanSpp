@@ -1,5 +1,23 @@
 <?php
 
+// tutor 144
+function getNamaJurusan ()
+{
+  return   [
+        'Rekayasa Perangkat Lunak' => 'Rekayasa Perangkat Lunak',
+        'Teknik Komputer Jaringan' => 'Teknik Komputer Jaringan',
+        'Teknik Kendaraan Ringan' => 'Teknik Kendaraan Ringan',
+        'matematika' => 'mtk'
+  ];
+}
+
+
+function getNamaKelas ()
+{
+  return   [
+      10,11,12
+  ];
+}
 
 function bulanSPP() {
   return [

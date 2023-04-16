@@ -11,27 +11,47 @@
                         <div class="col-md-6">
                             <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             {!! Form::open(['route' => $routePrefix . '.index', 'method' => 'GET']) !!}
 
                             <div class="row">
+                                <div class="col-md-3">
+                                    {!! Form::text('q', request('q'), ['class' => 'form-control', 'placeholder' => 'Pencarian Data']) !!}
+                                </div>
+
                                 <div class="col">
-                                    {!! Form::selectMonth('bulan', request('bulan'), ['class' => 'form-control']) !!}
+                                    {!! Form::selectMonth('bulan', request('bulan'), ['class' => 'form-control', 'placeholder' => 'Pilih Bulan']) !!}
+                                </div>
+
+                                <div class="col">
+
+                                    {!! Form::select(
+                                        'status',
+                                        [
+                                            '' => 'Pilih Status',
+                                            'lunas' => 'Lunas',
+                                            'baru' => 'Belum Lunas',
+                                            'angsur' => 'Angsur',
+                                        ],
+                                        null,
+                                        ['class' => 'form-control'],
+                                    ) !!}
                                 </div>
 
 
-
                                 <div class="col">
-                                    {!! Form::selectRange('tahun', 2000, date('Y') + 10, request('tahun'), ['class' => 'form-control']) !!}
+                                    {!! Form::selectRange('tahun', 2022, date('Y') + 10, request('tahun'), ['class' => 'form-control']) !!}
                                 </div>
 
                                 <div class="col">
                                     <button class="btn btn-primary" type="submit">Cari</button>
                                 </div>
                             </div>
+                            {!! Form::close() !!}
                         </div>
+
                     </div>
-                    {!! Form::close() !!}
+
                     <div class="table-responsive mt-4">
                         <table id="data" class="table table-bordered text-center">
                             <thead>
@@ -54,7 +74,7 @@
                                         <td>{{ $item->tanggal_tagihan->format('d-F-Y ') }}</td>
                                         <td><span
                                                 class="badge  {{ $item->status == 'lunas' ? 'bg-primary' : 'bg-danger' }}">
-                                                {{ $item->status }}</span>
+                                                {{ $item->getTagihanWali() }}</span>
                                         </td>
                                         <td>{{ formatRupiah($item->tagihanDetails->sum('jumlah_biaya')) }}</td>
                                         <td>
@@ -82,12 +102,13 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">Data TIdak Ada</td>
+                                        <td colspan="7">Data TIdak Ada</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        {{-- {!! $models->links() !!} --}}
+                        {{-- <div class="mt-3">{!! $models->links() !!}</div> --}}
+
                     </div>
                 </div>
             </div>

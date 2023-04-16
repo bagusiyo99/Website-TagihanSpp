@@ -43,7 +43,9 @@
 
                         <div class="form-group mt-3">
                             <label for="kelas">Kelas</label>
-                            {!! Form::selectRange('kelas', 10, 12, null, ['class' => 'form-control', 'placeholder' => 'Pilih Kelas']) !!}
+
+                            {{-- {!! Form::selectRange('kelas', 10, 12, null, ['class' => 'form-control', 'placeholder' => 'Pilih Kelas']) !!} --}}
+                            {!! Form::select('kelas', getNamaKelas(), null, ['class' => 'form-control', 'placeholder' => 'kelas']) !!}
                             <span class="text-danger">{{ $errors->first('kelas') }}</span>
                         </div>
 
@@ -59,7 +61,7 @@
 
                         <div class="form-group mt-3">
                             <label for="jurusan">Jurusan</label>
-                            {!! Form::select(
+                            {{-- {!! Form::select(
                                 'jurusan',
                                 [
                                     'Rekayasa Perangkat Lunak' => 'Rekayasa Perangkat Lunak',
@@ -69,6 +71,11 @@
                                 null,
                                 ['class' => 'form-control', 'placeholder' => 'Jurusan'],
                             ) !!}
+                            <span class="text-danger">{{ $errors->first('jurusan') }}</span> --}}
+
+                            <label for="jurusan">Jurusan</label>
+                            {{-- cara singkat getNamaJurusan berada di helper tutor 144 --}}
+                            {!! Form::select('jurusan', getNamaJurusan(), null, ['class' => 'form-control', 'placeholder' => 'Jurusan']) !!}
                             <span class="text-danger">{{ $errors->first('jurusan') }}</span>
                         </div>
 

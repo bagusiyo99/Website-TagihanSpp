@@ -266,7 +266,10 @@
             <li class="menu-item {{ \Route::is('pembayaran.*') ? 'active' : '' }}">
               <a href="{{ route('pembayaran.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Data Pembayaran</div>
+                <div data-i18n="Basic">Data Pembayaran
+                  <span class="badge bg-danger rounded-pill badge-notifications">
+                    {{ auth()->user()->unreadNotifications->count() }}</span>
+                </div>
               </a>
             </li>
 
@@ -295,6 +298,13 @@
               <a href="{{ route('tagihan.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Data tagihan</div>
+              </a>
+            </li>
+
+                        <li class="menu-item {{ \Route::is('laporan.*') ? 'active' : '' }}">
+              <a href="{{ route('laporanform.create') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Data Laporan</div>
               </a>
             </li>
 
@@ -395,8 +405,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                            <small class="text-muted">{{ auth()->user()->email }}</small>
                           </div>
                         </div>
                       </a>
@@ -416,15 +426,7 @@
                         <span class="align-middle">Settings</span>
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
+                  
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>

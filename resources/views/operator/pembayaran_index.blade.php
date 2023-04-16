@@ -38,8 +38,9 @@
                                     <th>Nisn</th>
                                     <th>Nama Wali </th>
                                     <th>Tanggal Konfirmasi</th>
-                                    <th>Status Konfirmasi</th>
                                     <th>Metode Pembayaran</th>
+                                    <th>Status Konfirmasi</th>
+
                                     <th>Aksi</th>
 
                                 </tr>
@@ -53,7 +54,13 @@
                                         <td>{{ $item->wali->name }}</td>
                                         <td>{{ optional($item->tanggal_bayar)->format('d-F-Y ') }}</td>
                                         <td>{{ $item->metode_pembayaran }}</td>
-                                        <td>{{ $item->status_konfirmasi }}</td>
+                                        {{-- <td> <span class="badge  bg-primary">
+                                                {{ $item->status_konfirmasi }}</span>
+                                        </td> --}}
+                                        <td><span
+                                                class="badge bg-danger {{ $item->status_konfirmasi == 'Sudah Di Konfirmasi' ? 'bg-danger' : ' bg-primary' }}">
+                                                {{ $item->status_konfirmasi }}</span>
+                                        </td>
 
                                         <td>
 

@@ -9,6 +9,8 @@ use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KartuSppController;
 use App\Http\Controllers\KwitansiPembayaranController;
+use App\Http\Controllers\LaporanFormController;
+use App\Http\Controllers\LaporanTagihanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiswaController;
@@ -60,6 +62,10 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
 
     // tutor 105
     Route::get ('status/update', [StatusController::class, 'update'])->name('status.update');
+
+    Route::get('laporanform/create', [LaporanFormController::class, 'create'])->name('laporanform.create');
+
+    Route::get('laporantagihan', [LaporanTagihanController::class, 'index'])->name('laporantagihan.index');
 
 
 });

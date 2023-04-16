@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasFormatRupiah;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,8 +17,17 @@ class Tagihan extends Model
 
     //dapet dari use App\Traits\HasFormatRupiah;
     use HasFormatRupiah;
+    use SearchableTrait;
 
-    
+    protected $searchable = [
+        'columns' => [
+            'siswas.nama' => 10,
+            'siswas.nisn' => 10,
+        ],
+        'joins' => [
+            'siswas' => ['siswas.id', 'tagihans.siswa_id'],
+        ],
+    ];
     protected $guarded = [];
     protected $dates = ['tanggal_tagihan', 'tanggal_jatuh_tempo'];
     protected $with = ['user','siswa', 'tagihanDetails'];
@@ -69,6 +79,8 @@ class Tagihan extends Model
         }
         return $this->status;
     }
+
+
 
     public function scopeWaliSiswa($q)
     {

@@ -31,19 +31,48 @@ class TagihanController extends Controller
      */
     public function index(Request $request)
     {
-        //'user','siswa', 'tagihanDetails' (di model tagihan)
-        if ($request->filled('bulan') && $request->filled('tahun')) {
-            $models = Tagihan::with('user','siswa', 'tagihanDetails')->latest()
-                        ->whereMonth ('tanggal_tagihan',$request->bulan)
-                        ->whereYear ('tanggal_tagihan',$request->tahun)
-            ->paginate(50);
-        }else {
-        $models = Tagihan::latest()->paginate(50);
+    //     //'user','siswa', 'tagihanDetails' (di model tagihan) tutor 44
+    //     if ($request->filled('bulan') && $request->filled('tahun')) {
+    //         // $models = Tagihan::with('user','siswa')->groupBy('siswa_id')->latest()
+    //         $models = Tagihan::latest()
+    //                     ->whereMonth ('tanggal_tagihan',$request->bulan)
+    //                     ->whereYear ('tanggal_tagihan',$request->tahun)
+    //         ->paginate(50);
+    //     }else {
+    //     // $models = Tagihan::with('user','siswa')->groupBy('siswa_id')->latest()->paginate(50);
+    //    //pencarian vidio part 21 
+    //             if ( $request->filled('q')) {
+    //                 $models = Tagihan::search($request->q, null, true)->paginate(50);
+    //             } else {
+    //                 $models = Tagihan::latest()->paginate(50);
+    //             }
+    //     }
 
+
+            $models = Tagihan::latest();
+        if ($request->filled('bulan')) {
+            $models = $models->whereMonth ('tanggal_tagihan',$request->bulan);
         }
 
+        if ($request->filled('tahun')) {
+            $models = $models->whereYear ('tanggal_tagihan',$request->tahun);
+        }
+
+        if ($request->filled('status')) {
+            $models = $models->where('status',$request->status);
+        }
+
+        
+        if ($request->filled('q')) {
+            $models = $models->search($request->q, null, true);
+        }
+        // else {
+        // $models = Tagihan::latest()->paginate(50);
+
+
+
         return view('operator.'. $this->viewIndex, [
-        'models' => $models,
+        'models' => $models->paginate(50),
         'routePrefix' => $this->routePrefix,
         'title' => 'Data Tagihan',
         ]);
