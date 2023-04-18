@@ -44,8 +44,8 @@
                         <div class="form-group mt-3">
                             <label for="kelas">Kelas</label>
 
-                            {{-- {!! Form::selectRange('kelas', 10, 12, null, ['class' => 'form-control', 'placeholder' => 'Pilih Kelas']) !!} --}}
-                            {!! Form::select('kelas', getNamaKelas(), null, ['class' => 'form-control', 'placeholder' => 'kelas']) !!}
+                            {!! Form::selectRange('kelas', 10, 12, null, ['class' => 'form-control', 'placeholder' => 'Pilih Kelas']) !!}
+                            {{-- {!! Form::select('kelas', getNamaKelas(), null, ['class' => 'form-control', 'placeholder' => 'kelas']) !!} --}}
                             <span class="text-danger">{{ $errors->first('kelas') }}</span>
                         </div>
 

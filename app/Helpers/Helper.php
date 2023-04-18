@@ -15,7 +15,9 @@ function getNamaJurusan ()
 function getNamaKelas ()
 {
   return   [
-      10,11,12
+      '10' => '10',
+      '11' => '11',
+      '12' => '12',
   ];
 }
 

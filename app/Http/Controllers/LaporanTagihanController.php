@@ -30,7 +30,10 @@ class LaporanTagihanController extends Controller
 
         if ($request->filled('kelas')) {
             $tagihan = $tagihan->whereHas('siswa', function($q) use ($request) {
-                $q->where('kelas',$request->kelas );
+                // $q->whereHas('siswa', function ($q) use ($request) { 
+                    $q->where('kelas',$request->kelas );
+                // });
+                
             });
         }
 
