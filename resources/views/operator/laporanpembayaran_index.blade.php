@@ -11,7 +11,7 @@
                     <div class="table-responsive mt-4">
                         <table id="data" class="table table-bordered text-center ">
                             <thead>
-                                <tr>
+                                <tr class="table-primary">
                                     <th>No</th>
                                     <th>Nama </th>
                                     <th>Nama Wali </th>

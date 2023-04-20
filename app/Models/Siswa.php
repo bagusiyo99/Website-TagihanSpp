@@ -45,9 +45,11 @@ class Siswa extends Model
      */
     public function wali(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'wali_id')->withDefault([
-            'name' => 'Belum ada Wali murid'
-        ]);
+        return $this->belongsTo(User::class, 'wali_id');
+        //tutor 148
+        // ->withDefault([
+        //     'name' => 'Belum ada Wali murid'
+        // ]);
     }
 
     /**

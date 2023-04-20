@@ -29,10 +29,18 @@ class Tagihan extends Model
         ],
     ];
     protected $guarded = [];
-    protected $dates = ['tanggal_tagihan', 'tanggal_jatuh_tempo'];
+    protected $dates = ['tanggal_tagihan', 'tanggal_jatuh_tempo','tanggal_lunas'];
     protected $with = ['user','siswa', 'tagihanDetails'];
-    protected $append= [ 'total_tagihan'];
+    protected $append= [ 'total_tagihan', 'total_pembayaran'];
 
+
+            //{{-- tutor 154 --}}
+        protected function totalPembayaran(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($valeu) =>$this->pembayaran()->sum('jumlah_dibayar'),
+        );
+    }
 
         //{{-- tutor 103 --}}
         protected function totalTagihan(): Attribute
@@ -98,5 +106,30 @@ class Tagihan extends Model
         });
     }
     
+
+    // tutor 154 
+    public function updateStatus ()
+    {
+        if ($this->total_pembayaran >= $this->total_tagihan) {
+            $tanggalBayar = $this->pembayaran()
+            ->orderBy('tanggal_bayar', 'desc')
+            ->first()
+            ->tanggal_bayar;
+            $this->update([
+                'status' => 'lunas',
+                'tanggal_lunas' => $tanggalBayar,
+            ]);
+        }
+
+        if ($this->total_pembayaran > 0 && $this->total_pembayaran < $this->total_tagihan) {
+            $this->update(['status' => 'angsur', 'tanggal_lunas' => null]);
+        }
+
+
+        if ($this->total_pembayaran <= 0) {
+            $this->update(['status' => 'baru', 'tanggal_lunas' => null]);
+        }
+
+    }
 
 }

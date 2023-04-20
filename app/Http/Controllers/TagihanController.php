@@ -144,8 +144,9 @@ class TagihanController extends Controller
                         
                         if ($cekTagihan == null) {
                             $tagihan= Tagihan::create ($data);
-
-                            Notification::send($tagihan->siswa->wali, new TagihanNotification($tagihan));
+                            if ($tagihan->siswa->wali != null) {
+                                Notification::send($tagihan->siswa->wali, new TagihanNotification($tagihan));
+                            }
 
                             $biaya = $itemSiswa->biaya->children;
                                 foreach ($biaya as  $itemBiaya) {

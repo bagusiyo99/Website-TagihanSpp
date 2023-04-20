@@ -148,19 +148,39 @@ class WaliMuridPembayaranController extends Controller
         ];
 
          // tutor 90 jika data berhasil dan tidak
-        DB::beginTransaction();
-        try {
-        $pembayaran = Pembayaran::create($dataPembayaran);
-        // tutor 87 notifikasi
-        $userOperator = User::where('akses', 'operator')->get();
-        Notification::send($userOperator, new PembayaranNotification($pembayaran));
-        // akhir tutor 87 notifikasi
-        DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollback();
-        flash('Gagal menyimoan data pembayaran,' . $th->getMessage() )->error();
-        return back();
+        // DB::beginTransaction();
+        // try {
+        // $pembayaran = Pembayaran::create($dataPembayaran);
+        // // tutor 87 notifikasi
+        // $userOperator = User::where('akses', 'operator')->get();
+        // Notification::send($userOperator, new PembayaranNotification($pembayaran));
+        // // akhir tutor 87 notifikasi
+        // DB::commit();
+        // } catch (\Throwable $th) {
+        //     DB::rollback();
+        // flash('Gagal menyimoan data pembayaran,' . $th->getMessage() )->error();
+        // return back();
+        //     }
+
+        // validasi pembayarn harus lunas di tutor 148
+        $tagihan = Tagihan::findOrfail($request->tagihan_id);
+        if ($jumlahDibayar >= $tagihan->total_tagihan) {
+            DB::beginTransaction();
+            try {
+                $pembayaran = Pembayaran::create($dataPembayaran);
+                $userOperator = User::where('akses', 'operator')->get();
+                Notification::send($userOperator, new PembayaranNotification($pembayaran));
+                DB::commit();
+            } catch (\Throwable $th) {
+                    DB::rollback();
+                    flash('Gagal menyimoan data pembayaran,' . $th->getMessage() )->error();
+                    return back();
             }
+        } else {
+                flash('Pembayaran Tidak Boleh Kurang dari tagihan');
+                return back();       
+        }
+        
 
 
 

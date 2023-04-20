@@ -11,6 +11,7 @@ use App\Http\Controllers\KartuSppController;
 use App\Http\Controllers\KwitansiPembayaranController;
 use App\Http\Controllers\LaporanFormController;
 use App\Http\Controllers\LaporanPembayaranController;
+use App\Http\Controllers\LaporanRekapPembayaranController;
 use App\Http\Controllers\LaporanTagihanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\SettingController;
@@ -38,7 +39,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
+ return redirect()->route('login');
 });
 
 Auth::routes();
@@ -69,6 +70,7 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::get('laporantagihan', [LaporanTagihanController::class, 'index'])->name('laporantagihan.index');
 
     Route::get('laporanpembayaran', [LaporanPembayaranController::class, 'index'])->name('laporanpembayaran.index');
+    Route::get('laporanrekappembayaran', [LaporanRekapPembayaranController::class, 'index'])->name('laporanrekappembayaran.index');
 });
 
     Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');

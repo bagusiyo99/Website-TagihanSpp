@@ -28,31 +28,42 @@ class KartuSppController extends Controller
             $siswa = Siswa::findOrFail($request->siswa_id);
         }
 
-        $arrayData = [];
-        $tahun =  $request->tahun;
-        foreach (bulanSPP() as $bulan) {
-            if ($bulan == 1) {
-                $tahun = $tahun ;
-            }
-            $tagihan = Tagihan::where('siswa_id', $request->siswa_id)
-            ->whereYear('tanggal_tagihan', $tahun)
-            ->whereMonth('tanggal_tagihan', $bulan)
-            ->first();
+            $arrayData = [];
+            $tahun =  $request->tahun;
+            // perurangan bulan di helper
+            foreach (bulanSPP() as $bulan) {
+                // jika bulan 1 maka tahun ditambah 1
+                if ($bulan == 1) {
+                    $tahun = $tahun ;
+                }
 
-            $tanggalBayar = '';
-            if ($tagihan != null && $tagihan->status !='baru') {
-                $tanggalBayar = $tagihan->pembayaran->first()->tanggal_bayar->format('d F Y ');
-            }
+                // mencari tagihan berdasarkan siswa,tahun dan bulan tutor 1
+                // $tagihan = Tagihan::where('siswa_id', $request->siswa_id)
+                // ->whereYear('tanggal_tagihan', $tahun)
+                // ->whereMonth('tanggal_tagihan', $bulan)
+                // ->first();
 
-            $arrayData[] = [
-                'bulan' => ubahNamaBulan ($bulan),
-                'tahun' => $tahun,
-                'total_tagihan' => $tagihan->total_tagihan ?? 0,
-                'status_tagihan' =>  ($tagihan == null) ?  false:true,
-                'status_pembayaran' =>  ($tagihan == null) ?  'Belum Bayar' : $tagihan->status  ,
-                'tanggal_bayar' => $tanggalBayar,
-            ];
-        }
+                     //cara kedua  agar website tidak berat tutor 157
+                    $tagihan =$siswa->tagihan->filter(function ($value) use ($bulan, $tahun){
+                        return $value->tanggal_tagihan->year == $tahun && $value->tanggal_tagihan->month ==$bulan;
+                    })->first();
+
+
+                $tanggalBayar = '';
+                // jika tagihan tidak kosong dan status tidak baru , berarti sudah bayar, ambil tanggal bayar
+                if ($tagihan != null && $tagihan->status !='baru') {
+                    $tanggalBayar = $tagihan->pembayaran->first()->tanggal_bayar->format('d F Y ');
+                }
+
+                $arrayData[] = [
+                    'bulan' => ubahNamaBulan ($bulan),
+                    'tahun' => $tahun,
+                    'total_tagihan' => $tagihan->total_tagihan ?? 0,
+                    'status_tagihan' =>  ($tagihan == null) ?  false:true,
+                    'status_pembayaran' =>  ($tagihan == null) ?  'Belum Bayar' : $tagihan->status  ,
+                    'tanggal_bayar' => $tanggalBayar,
+                ];
+            }
 
         
         if (request ('output')== 'pdf') {

@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BerandaOperatorController extends Controller
 {
-    public function index (){
-    return view('operator.beranda_index');
+    function index (){
+    $data = [
+        'models' => User::get(),
+
+
+
+        'content'=> 'home/home/index'
+    ];
+      return view('operator.beranda_index',$data);
     }
+
+
 }

@@ -36,7 +36,7 @@
                                 @forelse ($models as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->wali->name }}</td>
+                                        <td>{{ $item->wali->name ?? 'belum ada wali' }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->nisn }}</td>
                                         <td><span
@@ -77,7 +77,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">Data TIdak Ada</td>
+                                        <td colspan="8">Data TIdak Ada</td>
                                     </tr>
                                 @endforelse
                             </tbody>
