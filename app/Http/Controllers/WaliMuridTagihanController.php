@@ -12,9 +12,10 @@ class WaliMuridTagihanController extends Controller
 {
     public function index ()
     {
+        $tagihan = Tagihan::waliSiswa()->latest();
         // $siswaId = Auth::user()->getAllSiswaId();
                 // WaliSiswa di model tagihan hal 64 tutor 80
-                $data['tagihan'] = Tagihan::WaliSiswa()->get();
+        $data['tagihan'] = $tagihan ->get();
         // $data['tagihan'] = Tagihan::whereIn('siswa_id', $siswaId)->get();
         return view ('wali.tagihan_index', $data);
     }
