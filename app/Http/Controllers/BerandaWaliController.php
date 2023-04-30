@@ -39,7 +39,10 @@ class BerandaWaliController extends Controller
                     $dataTagihan[] = [
                         'bulan' => ubahNamaBulan ($bulan),
                         'tahun' => $tahun,
+                        'tagihan' => $tagihan,
+                        //bisa tanggal lunas dan bisa status
                         'tanggal_lunas' => $tagihan->tanggal_lunas ?? '-',
+                        'status' => $tagihan?->status == 'baru' ? 'Belum Bayar' : $tagihan?->status,
                     ];
                 } 
                 $dataRekap [] = [
