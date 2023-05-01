@@ -265,6 +265,10 @@
               </a>
             </li>
 
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Pages</span>
+            </li>
+
             <li class="menu-item {{ \Route::is('pembayaran.*') ? 'active' : '' }}">
               <a href="{{ route('pembayaran.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
