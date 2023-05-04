@@ -1,5 +1,5 @@
 # Website SPP Sekolah
-Website Yang memberikan Informasi Tentang Sekolah
+Website Yang memberikan Informasi Tentang Pembayaran SPP Sekolah
 
 installasi:
 - Buka file pada Text Editor
