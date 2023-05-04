@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MonthlyUsersChart;
 use App\Models\Siswa;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
@@ -25,7 +26,7 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,)
+    public function index(Request $request, MonthlyUsersChart $MonthlyUsersChart)
     {
         //pencarian vidio part 21 
         if ( $request->filled('q')) {
@@ -43,6 +44,7 @@ class SiswaController extends Controller
         'models' => $models,
         'routePrefix' => $this->routePrefix,
         'title' => 'Data Siswa',
+        'MonthlyUsersChart' => $MonthlyUsersChart->build()
         ]);
     }
 

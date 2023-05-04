@@ -50,7 +50,7 @@ class BerandaWaliController extends Controller
                     'dataTagihan' => $dataTagihan
                 ];
         }
-
+        $data['siswa'] = Siswa::count();
         $data['dataRekap'] = $dataRekap;
         $data ['header'] = bulanSPP();
     return view('wali.beranda_index', $data);

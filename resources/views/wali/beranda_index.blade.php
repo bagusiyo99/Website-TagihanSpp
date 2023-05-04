@@ -47,9 +47,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <span class="fw-semibold d-block mb-1">Pembayaran Spp</span>
-                            <h3 class="card-title mb-2">2023</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>Data Anak</small>
+                            <span class="fw-semibold d-block mb-1">Total Siswa</span>
+                            <h3 class="card-title mb-2">{{ $siswa }}</h3>
+                            <small> <a href="{{ route('siswa.index') }}" class="text-success fw-semibold"> Data Siswa</a>
+
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -68,8 +70,12 @@
             <div class="col-md-6 col-lg-4 order-2 mb-4">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title m-0 me-2 text-uppercase">Kartu Spp {{ strtoupper($item['siswa']['nama']) }}
+                        {{-- agar nama depan yang diambil 1 --}}
+                        <h5 class="card-title m-0 me-2 text-uppercase">Kartu Spp
+                            {{ Str::words(strtoupper($item['siswa']['nama']), 1) }}
                         </h5>
+
+
                         <div class="dropdown">
                             <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -83,6 +89,14 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        {{-- kartu spp --}}
+                        <a href="{{ route('kartuspp.index', [
+                            'siswa_id' => $item['siswa']['id'],
+                            'tahun' => date('Y'),
+                        ]) }}"
+                            class="btn btn-primary mb-3 " target="blank"><i class="fa fa-file"> </i> Cetak Kartu
+                            SPP</a>
+
                         <ul class="p-0 m-0">
                             @foreach ($item['dataTagihan'] as $itemTagihan)
                                 <li class="d-flex mb-4 pb-1 list-group-item">
