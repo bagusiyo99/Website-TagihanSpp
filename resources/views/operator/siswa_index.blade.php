@@ -1,10 +1,30 @@
 @extends('layouts.app_sneat')
 
 @section('content')
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <h5 class="card-header">{{ $title }}</h5>
+
+                <div class="card-body">
+                    {!! $MonthlyUsersChart->container() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                {{-- <h5 class="card-header">{{ $title }}</h5> --}}
 
                 <div class="card-body">
                     <a href="{{ route($routePrefix . '.create') }}" class="btn btn-primary  mb-4">Tambah Data </a>
@@ -88,4 +108,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ $MonthlyUsersChart->cdn() }}"></script>
+
+    {{ $MonthlyUsersChart->script() }}
 @endsection

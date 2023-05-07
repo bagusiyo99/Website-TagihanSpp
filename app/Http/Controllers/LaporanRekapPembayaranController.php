@@ -17,6 +17,7 @@ class LaporanRekapPembayaranController extends Controller
         }
 
         $siswa = $siswa->get();
+         //perulangan data siswa
         foreach ($siswa as $itemSiswa) {
                 $dataTagihan = [];
                 $tahun =  $request->tahun;

@@ -14,7 +14,7 @@ class MonthlyUsersChart
         $this->chart = $chart;
     }
 
-    public function build(): \ArielMejiaDev\LarapexCharts\PieChart
+    public function build(): \ArielMejiaDev\LarapexCharts\DonutChart
     {
         $siswaKelas = Siswa::get();
         $data = [
@@ -27,9 +27,11 @@ class MonthlyUsersChart
             'kelas 11',
             'kelas 12',
         ];
-        return $this->chart->pieChart()
+        return $this->chart->DonutChart()
             ->setTitle('Data Siswa Perkelas')
             ->setSubtitle(date('Y'))
+            ->setWidth(500)
+            ->setHeight(400)
             ->addData($data)
             ->setLabels($label);
     }

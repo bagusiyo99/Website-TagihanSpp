@@ -4,9 +4,24 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">{{ $title }}</h5>
+                <h5 class="card-header"> Hal Yang Berat Dari Sebuah Proses Adalah Konsisten </h5>
 
                 <div class="card-body">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     {!! Form::model($model, ['route' => $route, 'method' => $method, 'files' => true]) !!}
 

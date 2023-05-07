@@ -46,6 +46,7 @@ class SiswaController extends Controller
         'title' => 'Data Siswa',
         'MonthlyUsersChart' => $MonthlyUsersChart->build()
         ]);
+        
     }
 
     /**
