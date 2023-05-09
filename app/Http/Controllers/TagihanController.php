@@ -207,7 +207,7 @@ class TagihanController extends Controller
         // akhir tutor 139
 
 
-        $tagihan = Tagihan::findOrFail($id);
+        $tagihan = Tagihan::with('pembayaran')->findOrFail($id);
     
         // tutor 139
         $data ['kartuSpp'] = collect ($arrayData);

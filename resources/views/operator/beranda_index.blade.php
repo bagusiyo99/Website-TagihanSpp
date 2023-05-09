@@ -26,13 +26,13 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
                         <div class="card-body">
-                            <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
+                            <h5 class="card-title text-primary">Selamat Datang {{ auth()->user()->name }}</h5>
                             <p class="mb-4">
-                                You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                                your profile.
+                                Kamu Mendapat <span class="fw-bold">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                Notifikasi Yang belum kamu lihat. Klik Tomboh dibawah untuk melihat informasi Pembayaran
                             </p>
 
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">Informasi Pembayaran</a>
                         </div>
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <span class="fw-semibold d-block mb-1">Total Siswa</span>
-                            <h3 class="card-title mb-2">{{ $siswa }}</h3>
+                            <h3 class="card-title mb-2">{{ $siswa->count() }} Siswa</h3>
                             <small> <a href="{{ route('siswa.index') }}" class="text-success fw-semibold"> Data Siswa</a>
 
                             </small>
@@ -1028,8 +1028,8 @@
             <div class="card h-100">
                 <div class="card-header d-flex align-items-center justify-content-between pb-0">
                     <div class="card-title mb-0">
-                        <h5 class="m-0 me-2">Order Statistics</h5>
-                        <small class="text-muted">42.82k Total Sales</small>
+                        <h5 class="m-0 me-2">Tagihan {{ $bulan }} {{ $tahun }}</h5>
+                        <small class="text-muted">{{ date('d F Y') }}</small>
                     </div>
                     <div class="dropdown">
                         <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown"
@@ -1046,254 +1046,33 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
                         <div class="d-flex flex-column align-items-center gap-1">
-                            <h2 class="mb-2">8,258</h2>
-                            <span>Total Orders</span>
+                            <h2 class="mb-2"> {{ $tagihanSudahBayar->count() }} /{{ $tagihanBelumBayar->count() }}</h2>
+                            <span>Total Tagihan {{ $totalTagihan }}</span>
                         </div>
-                        <div id="orderStatisticsChart" style="min-height: 137.55px;">
-                            <div id="apexchartsvcc3hekn"
-                                class="apexcharts-canvas apexchartsvcc3hekn apexcharts-theme-light"
-                                style="width: 130px; height: 137.55px;"><svg id="SvgjsSvg1733" width="130"
-                                    height="137.55" xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev"
-                                    class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)"
-                                    style="background: transparent;">
-                                    <g id="SvgjsG1735" class="apexcharts-inner apexcharts-graphical"
-                                        transform="translate(-7, 0)">
-                                        <defs id="SvgjsDefs1734">
-                                            <clipPath id="gridRectMaskvcc3hekn">
-                                                <rect id="SvgjsRect1737" width="150" height="173" x="-4.5"
-                                                    y="-2.5" rx="0" ry="0" opacity="1"
-                                                    stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff">
-                                                </rect>
-                                            </clipPath>
-                                            <clipPath id="forecastMaskvcc3hekn"></clipPath>
-                                            <clipPath id="nonForecastMaskvcc3hekn"></clipPath>
-                                            <clipPath id="gridRectMarkerMaskvcc3hekn">
-                                                <rect id="SvgjsRect1738" width="145" height="172" x="-2"
-                                                    y="-2" rx="0" ry="0" opacity="1"
-                                                    stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff">
-                                                </rect>
-                                            </clipPath>
-                                        </defs>
-                                        <g id="SvgjsG1739" class="apexcharts-pie">
-                                            <g id="SvgjsG1740" transform="translate(0, 0) scale(1)">
-                                                <circle id="SvgjsCircle1741" r="44.835365853658544" cx="70.5"
-                                                    cy="70.5" fill="transparent"></circle>
-                                                <g id="SvgjsG1742" class="apexcharts-slices">
-                                                    <g id="SvgjsG1743" class="apexcharts-series apexcharts-pie-series"
-                                                        seriesName="Electronic" rel="1" data:realIndex="0">
-                                                        <path id="SvgjsPath1744"
-                                                            d="M 70.5 10.71951219512195 A 59.78048780487805 59.78048780487805 0 0 1 97.63977353321047 123.7648046533095 L 90.85483014990785 110.44860348998213 A 44.835365853658544 44.835365853658544 0 0 0 70.5 25.664634146341456 L 70.5 10.71951219512195 z"
-                                                            fill="rgba(105,108,255,1)" fill-opacity="1"
-                                                            stroke-opacity="1" stroke-linecap="butt" stroke-width="5"
-                                                            stroke-dasharray="0"
-                                                            class="apexcharts-pie-area apexcharts-donut-slice-0"
-                                                            index="0" j="0" data:angle="153"
-                                                            data:startAngle="0" data:strokeWidth="5" data:value="85"
-                                                            data:pathOrig="M 70.5 10.71951219512195 A 59.78048780487805 59.78048780487805 0 0 1 97.63977353321047 123.7648046533095 L 90.85483014990785 110.44860348998213 A 44.835365853658544 44.835365853658544 0 0 0 70.5 25.664634146341456 L 70.5 10.71951219512195 z"
-                                                            stroke="#ffffff"></path>
-                                                    </g>
-                                                    <g id="SvgjsG1745" class="apexcharts-series apexcharts-pie-series"
-                                                        seriesName="Sports" rel="2" data:realIndex="1">
-                                                        <path id="SvgjsPath1746"
-                                                            d="M 97.63977353321047 123.7648046533095 A 59.78048780487805 59.78048780487805 0 0 1 70.5 130.28048780487805 L 70.5 115.33536585365854 A 44.835365853658544 44.835365853658544 0 0 0 90.85483014990785 110.44860348998213 L 97.63977353321047 123.7648046533095 z"
-                                                            fill="rgba(133,146,163,1)" fill-opacity="1"
-                                                            stroke-opacity="1" stroke-linecap="butt" stroke-width="5"
-                                                            stroke-dasharray="0"
-                                                            class="apexcharts-pie-area apexcharts-donut-slice-1"
-                                                            index="0" j="1" data:angle="27"
-                                                            data:startAngle="153" data:strokeWidth="5" data:value="15"
-                                                            data:pathOrig="M 97.63977353321047 123.7648046533095 A 59.78048780487805 59.78048780487805 0 0 1 70.5 130.28048780487805 L 70.5 115.33536585365854 A 44.835365853658544 44.835365853658544 0 0 0 90.85483014990785 110.44860348998213 L 97.63977353321047 123.7648046533095 z"
-                                                            stroke="#ffffff"></path>
-                                                    </g>
-                                                    <g id="SvgjsG1747" class="apexcharts-series apexcharts-pie-series"
-                                                        seriesName="Decor" rel="3" data:realIndex="2">
-                                                        <path id="SvgjsPath1748"
-                                                            d="M 70.5 130.28048780487805 A 59.78048780487805 59.78048780487805 0 0 1 10.71951219512195 70.50000000000001 L 25.664634146341456 70.5 A 44.835365853658544 44.835365853658544 0 0 0 70.5 115.33536585365854 L 70.5 130.28048780487805 z"
-                                                            fill="rgba(3,195,236,1)" fill-opacity="1" stroke-opacity="1"
-                                                            stroke-linecap="butt" stroke-width="5" stroke-dasharray="0"
-                                                            class="apexcharts-pie-area apexcharts-donut-slice-2"
-                                                            index="0" j="2" data:angle="90"
-                                                            data:startAngle="180" data:strokeWidth="5" data:value="50"
-                                                            data:pathOrig="M 70.5 130.28048780487805 A 59.78048780487805 59.78048780487805 0 0 1 10.71951219512195 70.50000000000001 L 25.664634146341456 70.5 A 44.835365853658544 44.835365853658544 0 0 0 70.5 115.33536585365854 L 70.5 130.28048780487805 z"
-                                                            stroke="#ffffff"></path>
-                                                    </g>
-                                                    <g id="SvgjsG1749" class="apexcharts-series apexcharts-pie-series"
-                                                        seriesName="Fashion" rel="4" data:realIndex="3">
-                                                        <path id="SvgjsPath1750"
-                                                            d="M 10.71951219512195 70.50000000000001 A 59.78048780487805 59.78048780487805 0 0 1 70.48956633664653 10.719513105630845 L 70.4921747524849 25.664634829223125 A 44.835365853658544 44.835365853658544 0 0 0 25.664634146341456 70.5 L 10.71951219512195 70.50000000000001 z"
-                                                            fill="rgba(113,221,55,1)" fill-opacity="1" stroke-opacity="1"
-                                                            stroke-linecap="butt" stroke-width="5" stroke-dasharray="0"
-                                                            class="apexcharts-pie-area apexcharts-donut-slice-3"
-                                                            index="0" j="3" data:angle="90"
-                                                            data:startAngle="270" data:strokeWidth="5" data:value="50"
-                                                            data:pathOrig="M 10.71951219512195 70.50000000000001 A 59.78048780487805 59.78048780487805 0 0 1 70.48956633664653 10.719513105630845 L 70.4921747524849 25.664634829223125 A 44.835365853658544 44.835365853658544 0 0 0 25.664634146341456 70.5 L 10.71951219512195 70.50000000000001 z"
-                                                            stroke="#ffffff"></path>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                            <g id="SvgjsG1751" class="apexcharts-datalabels-group"
-                                                transform="translate(0, 0) scale(1)" style="opacity: 1;"><text
-                                                    id="SvgjsText1752" font-family="Helvetica, Arial, sans-serif"
-                                                    x="70.5" y="90.5" text-anchor="middle"
-                                                    dominant-baseline="auto" font-size="0.8125rem" font-weight="400"
-                                                    fill="#a1acb8" class="apexcharts-text apexcharts-datalabel-label"
-                                                    style="font-family: Helvetica, Arial, sans-serif; fill: rgb(161, 172, 184);">Weekly</text><text
-                                                    id="SvgjsText1753" font-family="Public Sans" x="70.5"
-                                                    y="71.5" text-anchor="middle" dominant-baseline="auto"
-                                                    font-size="1.5rem" font-weight="400" fill="#566a7f"
-                                                    class="apexcharts-text apexcharts-datalabel-value"
-                                                    style="font-family: &quot;Public Sans&quot;;">38%</text></g>
-                                        </g>
-                                        <line id="SvgjsLine1754" x1="0" y1="0" x2="141"
-                                            y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
-                                            stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-                                        <line id="SvgjsLine1755" x1="0" y1="0" x2="141"
-                                            y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt"
-                                            class="apexcharts-ycrosshairs-hidden"></line>
-                                    </g>
-                                    <g id="SvgjsG1736" class="apexcharts-annotations"></g>
-                                </svg>
-                                <div class="apexcharts-legend"></div>
-                                <div class="apexcharts-tooltip apexcharts-theme-dark"
-                                    style="left: 11.6812px; top: 11.6px;">
-                                    <div class="apexcharts-tooltip-series-group apexcharts-active"
-                                        style="order: 1; display: flex; background-color: rgb(105, 108, 255);"><span
-                                            class="apexcharts-tooltip-marker"
-                                            style="background-color: rgb(105, 108, 255); display: none;"></span>
-                                        <div class="apexcharts-tooltip-text"
-                                            style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                                            <div class="apexcharts-tooltip-y-group"><span
-                                                    class="apexcharts-tooltip-text-y-label">Electronic: </span><span
-                                                    class="apexcharts-tooltip-text-y-value">85</span></div>
-                                            <div class="apexcharts-tooltip-goals-group"><span
-                                                    class="apexcharts-tooltip-text-goals-label"></span><span
-                                                    class="apexcharts-tooltip-text-goals-value"></span></div>
-                                            <div class="apexcharts-tooltip-z-group"><span
-                                                    class="apexcharts-tooltip-text-z-label"></span><span
-                                                    class="apexcharts-tooltip-text-z-value"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="apexcharts-tooltip-series-group"
-                                        style="order: 2; display: none; background-color: rgb(105, 108, 255);"><span
-                                            class="apexcharts-tooltip-marker"
-                                            style="background-color: rgb(105, 108, 255); display: none;"></span>
-                                        <div class="apexcharts-tooltip-text"
-                                            style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                                            <div class="apexcharts-tooltip-y-group"><span
-                                                    class="apexcharts-tooltip-text-y-label">Electronic: </span><span
-                                                    class="apexcharts-tooltip-text-y-value">85</span></div>
-                                            <div class="apexcharts-tooltip-goals-group"><span
-                                                    class="apexcharts-tooltip-text-goals-label"></span><span
-                                                    class="apexcharts-tooltip-text-goals-value"></span></div>
-                                            <div class="apexcharts-tooltip-z-group"><span
-                                                    class="apexcharts-tooltip-text-z-label"></span><span
-                                                    class="apexcharts-tooltip-text-z-value"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="apexcharts-tooltip-series-group"
-                                        style="order: 3; display: none; background-color: rgb(105, 108, 255);"><span
-                                            class="apexcharts-tooltip-marker"
-                                            style="background-color: rgb(105, 108, 255); display: none;"></span>
-                                        <div class="apexcharts-tooltip-text"
-                                            style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                                            <div class="apexcharts-tooltip-y-group"><span
-                                                    class="apexcharts-tooltip-text-y-label">Electronic: </span><span
-                                                    class="apexcharts-tooltip-text-y-value">85</span></div>
-                                            <div class="apexcharts-tooltip-goals-group"><span
-                                                    class="apexcharts-tooltip-text-goals-label"></span><span
-                                                    class="apexcharts-tooltip-text-goals-value"></span></div>
-                                            <div class="apexcharts-tooltip-z-group"><span
-                                                    class="apexcharts-tooltip-text-z-label"></span><span
-                                                    class="apexcharts-tooltip-text-z-value"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="apexcharts-tooltip-series-group"
-                                        style="order: 4; display: none; background-color: rgb(105, 108, 255);"><span
-                                            class="apexcharts-tooltip-marker"
-                                            style="background-color: rgb(105, 108, 255); display: none;"></span>
-                                        <div class="apexcharts-tooltip-text"
-                                            style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                                            <div class="apexcharts-tooltip-y-group"><span
-                                                    class="apexcharts-tooltip-text-y-label">Electronic: </span><span
-                                                    class="apexcharts-tooltip-text-y-value">85</span></div>
-                                            <div class="apexcharts-tooltip-goals-group"><span
-                                                    class="apexcharts-tooltip-text-goals-label"></span><span
-                                                    class="apexcharts-tooltip-text-goals-value"></span></div>
-                                            <div class="apexcharts-tooltip-z-group"><span
-                                                    class="apexcharts-tooltip-text-z-label"></span><span
-                                                    class="apexcharts-tooltip-text-z-value"></span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="resize-triggers">
-                            <div class="expand-trigger">
-                                <div style="width: 338px; height: 139px;"></div>
-                            </div>
-                            <div class="contract-trigger"></div>
-                        </div>
+                        {!! $tagihanChart->container() !!}
+
                     </div>
                     <ul class="p-0 m-0">
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <span class="avatar-initial rounded bg-label-primary"><i
-                                        class="bx bx-mobile-alt"></i></span>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Electronic</h6>
-                                    <small class="text-muted">Mobile, Earbuds, TV</small>
+                        @foreach ($tagihanPerKelas as $key => $item)
+                            <li class="d-flex mb-4 pb-1">
+                                <div class="avatar flex-shrink-0 me-3">
+                                    <span class="avatar-initial rounded bg-label-primary">
+                                        {{ $item->count() }}
+                                    </span>
                                 </div>
-                                <div class="user-progress">
-                                    <small class="fw-semibold">82.5k</small>
+                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div class="me-2">
+                                        <h6 class="mb-0">Kelas {{ $key }}</h6>
+                                        <small class="text-muted">Sudah Bayar / Belum Bayar</small>
+                                    </div>
+                                    <div class="user-progress">
+                                        <small class="fw-semibold">{{ $item->where('status', 'lunas')->count() }} /
+                                            {{ $item->where('status', '<>', 'lunas')->count() }}</small>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Fashion</h6>
-                                    <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                                </div>
-                                <div class="user-progress">
-                                    <small class="fw-semibold">23.8k</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Decor</h6>
-                                    <small class="text-muted">Fine Art, Dining</small>
-                                </div>
-                                <div class="user-progress">
-                                    <small class="fw-semibold">849k</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="d-flex">
-                            <div class="avatar flex-shrink-0 me-3">
-                                <span class="avatar-initial rounded bg-label-secondary"><i
-                                        class="bx bx-football"></i></span>
-                            </div>
-                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                <div class="me-2">
-                                    <h6 class="mb-0">Sports</h6>
-                                    <small class="text-muted">Football, Cricket Kit</small>
-                                </div>
-                                <div class="user-progress">
-                                    <small class="fw-semibold">99</small>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
@@ -1680,8 +1459,8 @@
                                                                     <path id="apexcharts-radialbarTrack-0"
                                                                         d="M 40 18.098170731707313 A 21.901829268292687 21.901829268292687 0 1 1 39.99617740968999 18.098171065291247"
                                                                         fill="none" fill-opacity="1"
-                                                                        stroke="rgba(236,238,241,0.85)"
-                                                                        stroke-opacity="1" stroke-linecap="round"
+                                                                        stroke="rgba(236,238,241,0.85)" stroke-opacity="1"
+                                                                        stroke-linecap="round"
                                                                         stroke-width="2.0408536585365864"
                                                                         stroke-dasharray="0"
                                                                         class="apexcharts-radialbar-area"
@@ -1697,13 +1476,13 @@
                                                                     <path id="SvgjsPath1851"
                                                                         d="M 40 18.098170731707313 A 21.901829268292687 21.901829268292687 0 1 1 22.2810479140526 52.873572242130095"
                                                                         fill="none" fill-opacity="0.85"
-                                                                        stroke="rgba(105,108,255,0.85)"
-                                                                        stroke-opacity="1" stroke-linecap="round"
+                                                                        stroke="rgba(105,108,255,0.85)" stroke-opacity="1"
+                                                                        stroke-linecap="round"
                                                                         stroke-width="4.081707317073173"
                                                                         stroke-dasharray="0"
                                                                         class="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
-                                                                        data:angle="234" data:value="65"
-                                                                        index="0" j="0"
+                                                                        data:angle="234" data:value="65" index="0"
+                                                                        j="0"
                                                                         data:pathOrig="M 40 18.098170731707313 A 21.901829268292687 21.901829268292687 0 1 1 22.2810479140526 52.873572242130095">
                                                                     </path>
                                                                 </g>
@@ -1717,8 +1496,7 @@
                                                                         font-family="Helvetica, Arial, sans-serif"
                                                                         x="40" y="45"
                                                                         text-anchor="middle" dominant-baseline="auto"
-                                                                        font-size="13px" font-weight="400"
-                                                                        fill="#697a8d"
+                                                                        font-size="13px" font-weight="400" fill="#697a8d"
                                                                         class="apexcharts-text apexcharts-datalabel-value"
                                                                         style="font-family: Helvetica, Arial, sans-serif;">$65</text>
                                                                 </g>
@@ -1879,4 +1657,7 @@
         </div>
         <!--/ Transactions -->
     </div>
+    <script src="{{ $tagihanChart->cdn() }}"></script>
+
+    {{ $tagihanChart->script() }}
 @endsection
