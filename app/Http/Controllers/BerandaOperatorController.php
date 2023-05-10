@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\PembayaranStatusChart;
 use App\Charts\TagihanBulananChart;
+use App\Charts\TagihanStatusChart;
 use App\Models\Pembayaran;
 use App\Models\Siswa;
 use App\Models\Tagihan;
@@ -12,7 +14,11 @@ use Illuminate\Http\Request;
 class BerandaOperatorController extends Controller
     
 {
-    function index (TagihanBulananChart $tagihanBulananChart){
+    function index (
+        TagihanBulananChart $tagihanBulananChart,
+        TagihanStatusChart $tagihanStatusChart,
+        PembayaranStatusChart $pembayaranStatusChart
+    ){
 
         /// yang lama tutor 162
         $tahun = date('Y');
@@ -42,16 +48,43 @@ class BerandaOperatorController extends Controller
         $data['tagihanBelumBayar'] = $tagihanBelumBayar;
         $data['tagihanSudahBayar'] = $tagihanSudahBayar;
 
-             $data['tagihanChart'] = $tagihanBulananChart->build([
+            $data['tagihanChart'] = $tagihanBulananChart->build([
             $tagihanBelumBayar->count(),
             $tagihanSudahBayar->count(),
         ]);
 
+        //tagihan berdasarkan status grafik tutor 165
+        $labelTagihanStatusChart = ['Lunas', 'Angsur', 'Belum Lunas'];
+        $dataTagihanStatusChart = [
+            $tagihan->where('status', 'lunas')->count(),
+            $tagihan->where('status', 'angsur')->count(),
+            $tagihan->where('status', 'baru')->count(),
+        ];
 
-      return view('operator.beranda_index',$data);
+        $data['tagihanStatusChart'] = $tagihanStatusChart->build($labelTagihanStatusChart, $dataTagihanStatusChart);
+
+         //pembayaran berdasarkan status grafik tutor 165
+        $labelPembayaranChart = ['Sudah Dikonfirmasi', 'Belum Dikonfirmasi'];
+        $dataPembayaranChart = [
+            $pembayaran->whereNotNull('tanggal_konfirmasi')->count(),
+            $pembayaran->whereNull('tanggal_konfirmasi')->count(),
+        ];
+
+        $data['pembayaranStatusChart'] = $pembayaranStatusChart->build($labelPembayaranChart, $dataPembayaranChart);
 
 
-    //tutor 164
+        return view('operator.beranda_index',$data);
+
+
+
+    }
+
+
+}
+
+
+
+    //tutor 164 
         // $tahun = date('Y');
         // $bulan = date('M');
         // $data['siswa'] = Siswa::get();
@@ -82,8 +115,4 @@ class BerandaOperatorController extends Controller
         //     $tagihanBelumBayar->count(),
         //     $tagihanSudahBayar->count(),
         // ]);
-      return view('operator.beranda_index',$data);
-    }
 
-
-}

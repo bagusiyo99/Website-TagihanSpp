@@ -71,3 +71,4 @@ function terbilang($x) {
   elseif ($x < 1000000000)
     return terbilang($x / 1000000) . " juta" . terbilang($x % 1000000);
 }
+

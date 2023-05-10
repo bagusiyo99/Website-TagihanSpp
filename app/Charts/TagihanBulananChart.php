@@ -15,13 +15,13 @@ class TagihanBulananChart
         $this->chart = $chart;
     }
 
-    public function build(array $data): \ArielMejiaDev\LarapexCharts\DonutChart
+    public function build( array $data): \ArielMejiaDev\LarapexCharts\DonutChart
     {
         return $this->chart->donutChart()
             ->setDataLabels(true)
             ->setWidth(155)
             ->setHeight(155)
             ->setSparkline(true)
-            ->addData([20, 24, 30]);
+            ->addData($data);
     }
 }

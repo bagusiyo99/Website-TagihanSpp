@@ -18,7 +18,7 @@
             </div>
         </div>
     </div> --}}
-    {{--  tutor 162 dan --}} {{--  tutor 164 --}}
+    {{--  tutor 162 dan --}} {{--  tutor 164 --}} {{--  tutor 165 --}}
 
     <div class="row">
         <div class="col-lg-8 mb-4 order-0">
@@ -1021,6 +1021,32 @@
         </div> --}}
     </div>
 
+    {{-- grafikk --}}
+    <div class="row mb-3">
+        <div class="col-md-6 ">
+            <div class="card h-100">
+                <div class="card">
+                    <div class="card-body">
+                        {{ $tagihanStatusChart->container() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="card h-100">
+                <div class="card">
+                    <div class="card-body">
+                        {{ $pembayaranStatusChart->container() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     {{-- bawah --}}
     <div class="row">
         <!-- Order Statistics -->
@@ -1193,4 +1219,7 @@
     <script src="{{ $tagihanChart->cdn() }}"></script>
 
     {{ $tagihanChart->script() }}
+
+    {{ $tagihanStatusChart->script() }}
+    {{ $pembayaranStatusChart->script() }}
 @endsection
