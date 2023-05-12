@@ -65,8 +65,19 @@
                                         {{-- <td> <span class="badge  bg-primary">
                                                 {{ $item->status_konfirmasi }}</span>
                                         </td> --}}
-                                        <td>
+                                        {{-- <td>
                                             {{ $item->status_konfirmasi }}
+                                        </td> --}}
+
+
+                                        {{-- tutor 166 --}}
+                                        <td>
+                                            <span class="badge badge-pill bg-{{ $item->status_style }}">
+                                                @if ($item->status_konfirmasi == null)
+                                                @else
+                                                    {{ $item->status_konfirmasi }}
+                                                @endif
+                                            </span>
                                         </td>
 
                                         <td>

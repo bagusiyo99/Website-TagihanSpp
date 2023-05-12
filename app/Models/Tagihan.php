@@ -31,8 +31,24 @@ class Tagihan extends Model
     protected $guarded = [];
     protected $dates = ['tanggal_tagihan', 'tanggal_jatuh_tempo','tanggal_lunas'];
     protected $with = ['user','siswa', 'tagihanDetails'];
-    protected $append= [ 'total_tagihan', 'total_pembayaran'];
+    protected $append= [ 'total_tagihan', 'total_pembayaran', 'status_style'];
 
+
+    //{{-- tutor 166--}} menganti style bg
+    public function getStatusStyleAttribute()
+    {
+        if ($this->status == 'lunas') {
+            return 'success';
+        }
+
+        if ($this->status == 'angsur') {
+            return 'warning';
+        }
+
+        if ($this->status == 'baru') {
+            return 'primary';
+        }
+    }
 
             //{{-- tutor 154 --}}
         protected function totalPembayaran(): Attribute

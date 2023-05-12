@@ -19,7 +19,20 @@ class Pembayaran extends Model
     protected $guarded = [];
     protected $dates = ['tanggal_bayar', 'tanggal_konfirmasi'];
     // protected $with = ['user', 'tagihan'];
-    protected $append= ['status_konfirmasi'];
+    protected $append= ['status_konfirmasi', 'status_style'];
+
+
+
+    public function getStatusStyleAttribute()
+    {
+        if ($this->status_konfirmasi == 'null') {
+            return 'success';
+        }
+
+            return 'warning';
+
+
+    }
 
         //tutor 94
         protected function statusKonfirmasi(): Attribute

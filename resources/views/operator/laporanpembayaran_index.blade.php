@@ -30,7 +30,7 @@
                                         <td>{{ $item->tagihan->siswa->nama }}</td>
                                         <td>{{ $item->wali->name }}</td>
                                         <td>{{ $item->tagihan->siswa->nisn }}</td>
-                                        <td>{{ $item->tagihan->tanggal_tagihan->format('d-F-Y ') }}</td>
+                                        <td>{{ optional($item->tanggal_konfirmasi)->format('d-F-Y ') }}</td>
                                         <td><span
                                                 class="badge bg-danger {{ $item->status_konfirmasi == 'Sudah Di Konfirmasi' ? 'bg-danger' : ' bg-primary' }}">
                                                 {{ $item->status_konfirmasi }}</span>

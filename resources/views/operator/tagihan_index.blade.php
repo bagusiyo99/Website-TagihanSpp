@@ -72,10 +72,17 @@
                                         <td>{{ $item->siswa->nama }}</td>
                                         <td>{{ $item->siswa->nisn }}</td>
                                         <td>{{ $item->tanggal_tagihan->format('d-F-Y ') }}</td>
-                                        <td><span
+                                        {{-- cara pertama --}}
+                                        {{-- <td><span
                                                 class="badge  {{ $item->status == 'lunas' ? 'bg-primary' : 'bg-danger' }}">
                                                 {{ $item->getTagihanWali() }}</span>
+                                        </td> --}}
+
+                                        {{-- tutor 166 --}}
+                                        <td><span class="badge rounded-pill bg-{{ $item->status_style }}">
+                                                {{ $item->getTagihanWali() }}</span>
                                         </td>
+
                                         <td>{{ formatRupiah($item->tagihanDetails->sum('jumlah_biaya')) }}</td>
                                         <td>
 
