@@ -23,8 +23,16 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+                $user = auth()->user();
+        if ($user->akses == 'operator' || $user->akses == 'admin') {
+            return redirect()->route('operator.beranda');
+        } elseif ( $user->akses == 'wali'){
+            return redirect()->route('wali.beranda');
+        } else {
+            Auth::logout();
+            flash ('anda tidak memiliki akses') ->error ();
+            return redirect()->route('login');
+        }            }
         }
 
         return $next($request);
