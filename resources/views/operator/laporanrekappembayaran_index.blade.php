@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mt-5">
             <div class="card">
-                <h5 class="card-header text-center">laporan Rekap Pembayaran</h5>
+                <h5 class="card-header text-center">laporan Rekapan Pembayaran</h5>
 
                 <div class="card-body">
                     {{-- @include('operator.laporan_header') --}}
