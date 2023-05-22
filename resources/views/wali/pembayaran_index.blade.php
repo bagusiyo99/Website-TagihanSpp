@@ -51,7 +51,16 @@
                                         <td>{{ $item->tagihan->siswa->nama }}</td>
                                         <td>{{ $item->tagihan->siswa->nisn }}</td>
                                         <td>{{ $item->wali->name }}</td>
-                                        <td>{{ optional($item->tanggal_bayar)->format('d-F-Y ') }}</td>
+                                        {{-- <td>{{ optional($item->tanggal_bayar)->format('d-F-Y ') }}</td> --}}
+                                        <td>
+                                            @if ($item->tanggal_konfirmasi == null)
+                                                <span class="badge bg-danger ">
+                                                    Belum Dikonfirmasi</span>
+                                            @else
+                                                <span class="badge bg-primary ">
+                                                    {{ optional($item->tanggal_konfirmasi)->format('d-F-Y ') }}</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $item->metode_pembayaran }}</td>
                                         <td>{{ $item->status_konfirmasi }}</td>
 

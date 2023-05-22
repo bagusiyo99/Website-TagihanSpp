@@ -28,13 +28,17 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->siswa->nama }}</td>
                                         <td>{{ $item->siswa->jurusan }}</td>
-                                        <td>{{ $item->kelas }}</td>
+                                        <td>{{ $item->siswa->kelas }}</td>
                                         <td>{{ $item->tanggal_tagihan->format('d-F-Y ') }}</td>
-                                        <td>{{ $item->getTagihanWali() }}</td>
+                                        {{-- <td>{{ $item->getTagihanWali() }}</td> --}}
+                                        <td><span class="badge rounded-pill bg-{{ $item->status_style }}">
+                                                {{ $item->getTagihanWali() }}</span>
+                                        </td>
                                         {{-- getTagihanWali di model tagihan tutorial 70 --}}
                                         <td>
                                             @if ($item->status == 'baru' || $item->status == 'angsur')
-                                                <a href="{{ route('wali.tagihan.show', $item->id) }}" class="btn btn-primary">
+                                                <a href="{{ route('wali.tagihan.show', $item->id) }}"
+                                                    class="btn btn-primary">
                                                     Lakukan Pembayaran</a>
                                             @else
                                                 <a href="" class="btn btn-warning">
