@@ -27,6 +27,12 @@
                         </div>
 
                         <div class="form-group mt-3">
+                            <label for="deskripsi">Deskripso</label>
+                            {!! Form::text('deskripsi', settings()->get('deskripsi'), ['class' => 'form-control ']) !!}
+                            <span class="text-danger">{{ $errors->first('deskripsi') }}</span>
+                        </div>
+
+                        <div class="form-group mt-3">
                             <label for="app_phone">Alamat Instansi</label>
                             {!! Form::textarea('app_phone', settings()->get('app_phone'), [
                                 'class' => 'form-control',
