@@ -182,7 +182,7 @@
                   </g>
                 </svg>
               </span> --}}
-              <span class="app-brand-text demo menu-text fw-bolder ms-2 text-uppercase">{{ settings()->get('app_name') }}</span>
+              <span class="app-brand-text demo menu-text fw-bolder  text-uppercase">{{ settings()->get('app_name') }}</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -266,7 +266,7 @@
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Pages</span>
+              <span class="menu-header-text">Tagihan SPP</span>
             </li>
 
             <li class="menu-item {{ \Route::is('pembayaran.*') ? 'active' : '' }}">
