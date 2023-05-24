@@ -470,18 +470,18 @@
                   <script>
                       document.write(new Date().getFullYear());
                   </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  Tagihan SPP
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Pembayaran</a>
                 </div>
                 <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">Siswa</a>
+                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Wali</a>
 
                   <a
                     href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
                     target="_blank"
                     class="footer-link me-4"
-                    >Documentation</a
+                    >Laporan</a
                   >
 
                   <a
