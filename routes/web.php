@@ -49,27 +49,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function(){
     Route::get('beranda', [BerandaOperatorController::class, 'index'])->name('operator.beranda');
     Route::resource('user', UserController::class);
-    Route::resource('wali', WaliController::class);
-    Route::resource('siswa', SiswaController::class);
-    Route::resource('biaya', BiayaController::class);
-    Route::resource('bank', BankSekolahController::class);
-    Route::resource('listbank', BankController::class);
-    Route::resource('tagihan', TagihanController::class);
-    Route::resource('pembayaran', PembayaranController::class);
-    Route::resource('setting', SettingController::class);
-
-
-    // {{-- tutor 103 --}}
-    Route::get ('delete-biaya-item/{id}', [BiayaController::class, 'deleteItem'])->name('delete-biaya.item');
-
-    // tutor 105
-    Route::get ('status/update', [StatusController::class, 'update'])->name('status.update');
-
-    Route::get('laporanform/create', [LaporanFormController::class, 'create'])->name('laporanform.create');
-
-    Route::get('laporantagihan', [LaporanTagihanController::class, 'index'])->name('laporantagihan.index');
-
-    Route::get('laporanpembayaran', [LaporanPembayaranController::class, 'index'])->name('laporanpembayaran.index');
+     Route::get('laporanpembayaran', [LaporanPembayaranController::class, 'index'])->name('laporanpembayaran.index');
     Route::get('laporanrekappembayaran', [LaporanRekapPembayaranController::class, 'index'])->name('laporanrekappembayaran.index');
 });
 
