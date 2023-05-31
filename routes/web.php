@@ -49,15 +49,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function(){
     Route::get('beranda', [BerandaOperatorController::class, 'index'])->name('operator.beranda');
     Route::resource('user', UserController::class);
-     Route::get('laporanpembayaran', [LaporanPembayaranController::class, 'index'])->name('laporanpembayaran.index');
+    //  Route::get('laporanpembayaran', [LaporanPembayaranController::class, 'index'])->name('laporanpembayaran.index');
     // Route::get('laporanrekappembayaran', [LaporanRekapPembayaranController::class, 'index'])->name('laporanrekappembayaran.index');
 });
 
     Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');
 
-Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
+// Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
 
-});
+// });
 
 // name('wali')-> untuk grup agar tidak lagi memanggil wali karena sudah di buat grup
 Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(function(){
