@@ -50,7 +50,7 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
     Route::get('beranda', [BerandaOperatorController::class, 'index'])->name('operator.beranda');
     Route::resource('user', UserController::class);
     //  Route::get('laporanpembayaran', [LaporanPembayaranController::class, 'index'])->name('laporanpembayaran.index');
-    // Route::get('laporanrekappembayaran', [LaporanRekapPembayaranController::class, 'index'])->name('laporanrekappembayaran.index');
+     Route::get('laporanrekappembayaran', [LaporanRekapPembayaranController::class, 'index'])->name('laporanrekappembayaran.index');
 });
 
     Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');
