@@ -55,9 +55,9 @@ Route::prefix('operator')->middleware(['auth', 'auth.operator'])->group(function
 
     Route::get ('login-wali', [LoginController::class, 'showLoginFormWali'])->name('login.wali');
 
-// Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
+ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function(){
 
-// });
+ });
 
 // name('wali')-> untuk grup agar tidak lagi memanggil wali karena sudah di buat grup
 Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(function(){
