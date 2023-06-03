@@ -74,7 +74,7 @@ Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(f
  // {{-- tutor 132 --}}
     Route::get ('kartuspp', [KartuSppController::class, 'index'])->name('kartuspp.index')->middleware('auth');
     // {{-- tutor 131 --}}
-    Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show')->middleware('auth');
+    // Route::get ('kwitansi-pembayaran/{id}', [KwitansiPembayaranController::class, 'show'])->name('kwitansipembayaran.show')->middleware('auth');
 
     Route::resource('invoice', InvoiceController::class)->middleware('auth');
 
