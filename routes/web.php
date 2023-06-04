@@ -79,10 +79,10 @@ Route::prefix('wali')->middleware(['auth', 'auth.wali'])->name('wali.')->group(f
     Route::resource('invoice', InvoiceController::class)->middleware('auth');
 
 
-Route::get('logout', function () {
-    Auth::logout();
-    return redirect('login');
-})->name('logout');
+// Route::get('logout', function () {
+//     Auth::logout();
+//     return redirect('login');
+// })->name('logout');
 
 
 
