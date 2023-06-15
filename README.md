@@ -11,5 +11,5 @@ installasi:
 - Ketikkan perintah: php artisan key:generate
 - Ketikkan perintah: php artisan migrate:fresh --seed
 - Ketikkan perintah: php artisan serve
-- panel admin : admin@gmail.com | password : 12345
+- panel admin : admin@gmail.com | password : 1234
 
